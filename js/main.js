@@ -219,16 +219,15 @@
     );
   }
 
-  gsap.utils.toArray(".cards article").forEach((card, i) => {
+  gsap.utils.toArray(".work-card, .review-card").forEach((card, i) => {
     gsap.from(card, {
       opacity: 0,
-      y: 28,
-      duration: 0.9,
-      delay: i * 0.08,
+      y: 30,
+      duration: 0.85,
       ease: "power2.out",
       scrollTrigger: {
         trigger: card,
-        start: "top 88%",
+        start: "top 90%",
       },
     });
   });
