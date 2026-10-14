@@ -277,36 +277,217 @@ h2 {
   letter-spacing: 0.08em;
 }
 
-.philosophy,
-.services {
-  padding: 16vh 8vw;
+/* ==========================================================================
+   SECCIÓN SOBRE MÍ CON HARDWARE SCROLL 3D (Estilo Apple iPhone Pro)
+   ========================================================================== */
+.philosophy {
+  padding: 20vh 8vw;
+  background-color: var(--bg);
+  overflow: hidden;
+  position: relative;
 }
 
 .philosophy-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: 6vw;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
+  gap: 7vw;
   align-items: center;
 }
 
-.tool-frame {
-  overflow: hidden;
-  border-radius: 28px;
-  transform: translate3d(0, 0, 0);
+.tool-perspective-container {
+  perspective: 1600px;
+  perspective-origin: 50% 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
 }
 
-.tool-frame img {
+.tool-frame {
+  position: relative;
   width: 100%;
-  height: 56vh;
-  min-height: 320px;
-  object-fit: cover;
+  max-width: 580px;
+  border-radius: 36px;
+  overflow: hidden;
+  background: #0d0f0e;
+  box-shadow: 0 25px 60px rgba(29, 29, 31, 0.12);
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+}
+
+/* Borde exterior biselado estilo aluminio anodizado */
+.tool-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 36px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(0, 0, 0, 0.25) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Destello de barrido de luz metálica (Sheen gleam) */
+.tool-sheen {
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.22) 48%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0.22) 52%,
+    transparent 80%
+  );
+  transform: rotate(-15deg);
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0.8;
   will-change: transform;
 }
 
-.philosophy p:not(.eyebrow) {
-  margin-top: 1.2rem;
+.tool-img-wrap {
+  width: 100%;
+  height: 60vh;
+  min-height: 440px;
+  max-height: 620px;
+  overflow: hidden;
+  position: relative;
+}
+
+.tool-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transform: scale(1.15);
+  will-change: transform;
+}
+
+/* Etiquetas flotantes estilo iPhone Specs */
+.floating-spec-tag {
+  position: absolute;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1.15rem;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 980px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+  transform: translateZ(40px);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.spec-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-emerald, #10b981);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+}
+
+.spec-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.spec-text strong {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.spec-text small {
+  font-size: 0.7rem;
   color: var(--muted);
-  font-size: 1.12rem;
+  font-weight: 400;
+}
+
+.tag-top {
+  top: 14%;
+  left: 6%;
+}
+
+.tag-bottom {
+  bottom: 14%;
+  right: 6%;
+}
+
+/* Tipografía y métricas en Sobre mí */
+.philosophy-copy h2 {
+  font-size: clamp(2.4rem, 4.8vw, 3.8rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  margin-bottom: 1.6rem;
+  color: var(--ink);
+}
+
+.philosophy-copy h2 span {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.lead-text {
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  color: var(--ink);
+  line-height: 1.55;
+  margin-bottom: 1.2rem;
+}
+
+.philosophy-copy p:not(.lead-text):not(.eyebrow) {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.6rem;
+}
+
+.craft-metrics {
+  display: flex;
+  gap: 3rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid var(--line);
+  margin-top: 2rem;
+}
+
+.craft-metric {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-number {
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.metric-number small {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--muted);
+  margin-left: 2px;
+}
+
+.metric-desc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-top: 0.4rem;
 }
 
 .section-header {

@@ -82,24 +82,67 @@
         </div>
       </section>
 
-      <!-- SECCIÓN: SOBRE MÍ -->
+      <!-- SECCIÓN: SOBRE MÍ CON HARDWARE SCROLL 3D ESTILO IPHONE -->
       <section class="philosophy" id="sobre-mi">
         <div class="philosophy-grid">
-          <figure class="tool-frame">
-            <img
-              src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1400&q=80"
-              alt="Herramientas de poda sobre mesa de trabajo"
-            />
-          </figure>
-          <div>
-            <p class="eyebrow">Sobre mí</p>
-            <h2>Menos espectáculo.<br />Más permanencia.</h2>
-            <p>
+          
+          <!-- Marco Escultórico 3D estilo Apple Display -->
+          <div class="tool-perspective-container">
+            <figure class="tool-frame" id="toolFrame">
+              <!-- Destello de barrido de luz metálica estilo Apple Titanium -->
+              <div class="tool-sheen" id="toolSheen" aria-hidden="true"></div>
+              
+              <!-- Imagen en alta definición con parallax multi-capa -->
+              <div class="tool-img-wrap">
+                <img
+                  id="toolImage"
+                  src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1600&q=85"
+                  alt="Herramientas artesanales de poda sobre mesa de roble"
+                  width="1600"
+                  height="1067"
+                  loading="lazy"
+                />
+              </div>
+
+              <!-- Etiquetas flotantes estilo iPhone Specs -->
+              <div class="floating-spec-tag tag-top" id="tagTop">
+                <span class="spec-dot"></span>
+                <div class="spec-text">
+                  <strong>Acero al carbono forjado</strong>
+                  <small>Corte limpio sin daño celular</small>
+                </div>
+              </div>
+
+              <div class="floating-spec-tag tag-bottom" id="tagBottom">
+                <span class="spec-dot"></span>
+                <div class="spec-text">
+                  <strong>Artesanía milimétrica</strong>
+                  <small>Calibración manual de precisión</small>
+                </div>
+              </div>
+            </figure>
+          </div>
+
+          <div class="philosophy-copy" id="philosophyCopy">
+            <p class="eyebrow">Sobre mí · Filosofía</p>
+            <h2>Menos espectáculo.<br /><span>Más permanencia.</span></h2>
+            <p class="lead-text">
               Soy Javier, creador de Javama Jardinería. Concibo cada espacio verde como un diálogo sereno entre la arquitectura contemporánea y el crecimiento vegetal sin prisas.
             </p>
             <p>
               Sin artificios ni tendencias efímeras: aplico rigor botánico, materiales nobles y una poda de precisión que realza la silueta natural de cada especie a través de los años.
             </p>
+
+            <div class="craft-metrics">
+              <div class="craft-metric">
+                <span class="metric-number">0.1<small>mm</small></span>
+                <span class="metric-desc">Tolerancia en corte foliar</span>
+              </div>
+              <div class="craft-metric">
+                <span class="metric-number">100<small>%</small></span>
+                <span class="metric-desc">Nutrición bio-orgánica</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>

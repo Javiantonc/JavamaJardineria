@@ -201,22 +201,144 @@
       0.4
     );
 
-  if (toolImg) {
-    gsap.fromTo(
-      toolImg,
-      { yPercent: -8, scale: 1.08 },
-      {
-        yPercent: 8,
-        scale: 1,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".philosophy",
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
+  // ========================================================================
+  // ANIMACIÓN 3D HARDWARE DISPLAY ESTILO IPHONE (Sección Sobre Mí)
+  // ========================================================================
+  const toolFrame = document.getElementById("toolFrame");
+  const toolImage = document.getElementById("toolImage");
+  const toolSheen = document.getElementById("toolSheen");
+  const tagTop = document.getElementById("tagTop");
+  const tagBottom = document.getElementById("tagBottom");
+  const toolContainer = document.querySelector(".tool-perspective-container");
+
+  if (toolFrame && toolImage) {
+    gsap.set(toolFrame, {
+      transformOrigin: "50% 50%",
+      transformPerspective: 1600,
+      force3D: true,
+    });
+
+    // Timeline anclada al scrollTrigger de la sección Sobre Mí
+    const toolTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".philosophy",
+        start: "top 85%",
+        end: "bottom 15%",
+        scrub: 1.2,
+      },
+    });
+
+    // 1. Giro 3D y escala del marco como un dispositivo Apple
+    toolTl
+      .fromTo(
+        toolFrame,
+        {
+          rotateY: -20,
+          rotateX: 16,
+          rotateZ: -3,
+          scale: 0.88,
+          yPercent: 12,
+          boxShadow: "0 15px 35px rgba(29, 29, 31, 0.08)",
         },
-      }
-    );
+        {
+          rotateY: 10,
+          rotateX: -10,
+          rotateZ: 2,
+          scale: 1.04,
+          yPercent: -10,
+          boxShadow: "0 45px 95px rgba(29, 29, 31, 0.22)",
+          ease: "none",
+        },
+        0
+      )
+      // 2. Parallax interno de la imagen dentro del marco
+      .fromTo(
+        toolImage,
+        {
+          scale: 1.25,
+          yPercent: -10,
+        },
+        {
+          scale: 1.05,
+          yPercent: 10,
+          ease: "none",
+        },
+        0
+      )
+      // 3. Destello de barrido de luz metálica (Sheen gleam estilo titanio)
+      .fromTo(
+        toolSheen,
+        {
+          xPercent: -90,
+          opacity: 0.2,
+        },
+        {
+          xPercent: 130,
+          opacity: 0.9,
+          ease: "power1.inOut",
+        },
+        0.1
+      )
+      // 4. Aparición flotante de las etiquetas estilo Apple specs
+      .fromTo(
+        tagTop,
+        {
+          autoAlpha: 0,
+          scale: 0.7,
+          y: 25,
+        },
+        {
+          autoAlpha: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.35,
+          ease: "back.out(1.7)",
+        },
+        0.25
+      )
+      .fromTo(
+        tagBottom,
+        {
+          autoAlpha: 0,
+          scale: 0.7,
+          y: 25,
+        },
+        {
+          autoAlpha: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.35,
+          ease: "back.out(1.7)",
+        },
+        0.35
+      );
+
+    // Micro-interacción Apple con ratón (Tilt 3D reactivo al pasar el cursor)
+    if (toolContainer) {
+      toolContainer.addEventListener("mousemove", (e) => {
+        const rect = toolContainer.getBoundingClientRect();
+        const mouseX = (e.clientX - rect.left) / rect.width - 0.5;
+        const mouseY = (e.clientY - rect.top) / rect.height - 0.5;
+
+        gsap.to(toolFrame, {
+          rotateY: mouseX * 16,
+          rotateX: -mouseY * 16,
+          duration: 0.8,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+      });
+
+      toolContainer.addEventListener("mouseleave", () => {
+        gsap.to(toolFrame, {
+          rotateY: 0,
+          rotateX: 0,
+          duration: 1.2,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+      });
+    }
   }
 
   gsap.utils.toArray(".work-card, .review-card").forEach((card, i) => {
