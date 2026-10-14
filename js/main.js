@@ -349,25 +349,28 @@
   const worksProgress = document.getElementById("worksProgress");
 
   if (worksSection && worksTrack) {
-    const isDesktop = window.innerWidth > 900;
+    const isDesktop = window.innerWidth > 768;
 
     if (isDesktop) {
       const getScrollDistance = () => {
-        return worksTrack.scrollWidth - window.innerWidth + (window.innerWidth * 0.18);
+        const trackWidth = worksTrack.scrollWidth;
+        const viewportWidth = window.innerWidth;
+        const paddingRight = parseFloat(window.getComputedStyle(worksTrack).paddingRight) || 0;
+        return Math.max(trackWidth - viewportWidth + paddingRight, 350);
       };
 
       const horizontalTl = gsap.timeline({
         scrollTrigger: {
           trigger: worksSection,
           start: "top top",
-          end: () => `+=${getScrollDistance()}`,
+          end: () => `+=${Math.max(getScrollDistance() * 1.3, 1100)}`,
           pin: true,
-          scrub: 1.1,
+          scrub: 1,
           invalidateOnRefresh: true,
           anticipatePin: 1,
           onUpdate: (self) => {
             if (worksProgress) {
-              worksProgress.style.width = `${Math.max(self.progress * 100, 10)}%`;
+              worksProgress.style.width = `${Math.max(self.progress * 100, 12)}%`;
             }
           },
         },
@@ -382,11 +385,24 @@
       gsap.utils.toArray(".work-card").forEach((card, index) => {
         horizontalTl.fromTo(
           card,
-          { scale: 0.96, opacity: 0.88 },
+          { scale: 0.97, opacity: 0.9 },
           { scale: 1, opacity: 1, duration: 0.25, ease: "power1.out" },
           index * 0.2
         );
       });
+    } else {
+      const container = document.querySelector(".works-track-container");
+      if (container && worksProgress) {
+        container.addEventListener(
+          "scroll",
+          () => {
+            const maxScroll = container.scrollWidth - container.clientWidth;
+            const ratio = maxScroll > 0 ? container.scrollLeft / maxScroll : 0;
+            worksProgress.style.width = `${Math.max(ratio * 100, 15)}%`;
+          },
+          { passive: true }
+        );
+      }
     }
 
     // ========================================================================
@@ -562,6 +578,24 @@
       }
     });
   }
+
+  // Desplazamiento suave para los enlaces del menú considerando la barra de navegación
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", (e) => {
+      const targetId = anchor.getAttribute("href");
+      if (targetId === "#") return;
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        const navOffset = 58;
+        const targetPos = targetEl.getBoundingClientRect().top + window.scrollY - navOffset;
+        window.scrollTo({
+          top: targetPos,
+          behavior: "smooth",
+        });
+      }
+    });
+  });
 
   window.addEventListener("scroll", onScrollPhysics, { passive: true });
   window.addEventListener("resize", resizeCanvas);
