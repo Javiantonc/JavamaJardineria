@@ -137,30 +137,50 @@ h2 {
   background: #0d0f0e;
   transform-style: preserve-3d;
   will-change: transform, border-radius, box-shadow;
+  border: 1px solid rgba(255, 255, 255, 0);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
 
 .leaf {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center 48%;
   display: block;
   transform: translate3d(0, 0, 0);
+  will-change: transform, filter;
 }
 
 .leaf-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.45) 0%,
-    rgba(0, 0, 0, 0.15) 35%,
-    rgba(0, 0, 0, 0.25) 65%,
-    rgba(0, 0, 0, 0.6) 100%
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.38) 100%
   );
   z-index: 1;
   pointer-events: none;
   will-change: opacity;
+}
+
+.bonsai-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 35%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(255, 255, 255, 0.04) 65%,
+    transparent 100%
+  );
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  transform: translateX(-100%);
+  will-change: transform, opacity;
 }
 
 .hero-copy {

@@ -93,10 +93,23 @@
     rain.targetSpeed = 1 + Math.min(3.2, Math.abs(vy) * 22);
   };
 
+  const bonsaiImage = document.getElementById("bonsaiImage") || document.querySelector(".leaf");
+  const bonsaiSheen = document.getElementById("bonsaiSheen");
+  const heroStage = document.querySelector(".hero-stage");
+  const leafScene = document.querySelector(".leaf-scene");
+
   gsap.set(leafWrap, {
     transformOrigin: "50% 50%",
+    transformPerspective: 1800,
     force3D: true,
   });
+
+  if (bonsaiImage) {
+    gsap.set(bonsaiImage, {
+      transformOrigin: "50% 50%",
+      force3D: true,
+    });
+  }
 
   gsap.set(revealCopy, {
     autoAlpha: 0,
@@ -118,32 +131,59 @@
   });
 
   heroTl
-    // 1. Overlay oscuro desaparece devolviendo la luminosidad viva a la imagen
+    // 1. Overlay sutil desaparece dejando ver la madera y el musgo en todo su esplendor
     .to(
       ".leaf-overlay",
       {
         opacity: 0,
-        duration: 0.5,
+        duration: 0.45,
       },
       0
     )
-    // 2. La imagen se transforma en 3D, se redondea y se ubica de lado
+    // 2. Destello de luz cinematográfico cruzando el tronco y la copa del bonsái
+    .fromTo(
+      ".bonsai-sheen",
+      {
+        xPercent: -120,
+        opacity: 0,
+      },
+      {
+        xPercent: 120,
+        opacity: 0.45,
+        duration: 0.7,
+        ease: "power1.inOut",
+      },
+      0.08
+    )
+    // 3. El marco del bonsái rota en 3D con perspectiva física y se coloca de lado
     .to(
       leafWrap,
       {
-        scale: isMobile ? 0.48 : 0.52,
+        scale: isMobile ? 0.48 : 0.54,
         xPercent: isMobile ? 0 : 32,
         yPercent: isMobile ? -22 : 0,
-        rotateY: isMobile ? 0 : -26,
-        rotateX: isMobile ? 8 : 12,
-        rotateZ: isMobile ? 0 : 3,
-        borderRadius: "32px",
-        boxShadow: "0 35px 85px rgba(0, 0, 0, 0.28)",
+        rotateY: isMobile ? 0 : -24,
+        rotateX: isMobile ? 8 : 10,
+        rotateZ: isMobile ? 0 : 2,
+        borderRadius: "28px",
+        borderColor: "rgba(255, 255, 255, 0.16)",
+        boxShadow: "0 35px 95px rgba(0, 0, 0, 0.38)",
         duration: 1,
       },
       0
     )
-    // 3. Las letras cambian de blanco a negro al salir de la imagen
+    // 4. Contra-parallax de la fotografía interna del bonsái para profundidad estereoscópica real
+    .to(
+      bonsaiImage,
+      {
+        scale: 1.08,
+        xPercent: isMobile ? 0 : -5,
+        filter: "contrast(1.04) brightness(1.02)",
+        duration: 1,
+      },
+      0
+    )
+    // 5. Las letras cambian de blanco a negro al salir de la imagen
     .to(
       heroCopy,
       {
@@ -160,7 +200,7 @@
       },
       0
     )
-    // 4. La barra de navegación se convierte en cristal esmerilado con texto negro
+    // 6. La barra de navegación se convierte en cristal esmerilado con texto negro
     .to(
       ".nav",
       {
@@ -180,7 +220,7 @@
       },
       0
     )
-    // 5. El texto del hero inicial se retira con suavidad hacia arriba
+    // 7. El texto del hero inicial se retira con suavidad hacia arriba
     .to(
       heroCopy,
       {
@@ -190,7 +230,7 @@
       },
       0.18
     )
-    // 6. El texto lateral ("Un jardín no se decora. Se orquesta.") aparece en negro nítido
+    // 8. El texto lateral ("Un jardín no se decora. Se orquesta.") aparece en negro nítido
     .to(
       revealCopy,
       {
@@ -200,6 +240,70 @@
       },
       0.4
     );
+
+  // Micro-interacción física: inclinación 3D del bonsái y destello reactivo al mover el cursor
+  if (heroStage && bonsaiImage) {
+    heroStage.addEventListener("mousemove", (e) => {
+      // Activo solo en la escena inicial previa al scroll profundo
+      if (window.scrollY > window.innerHeight * 0.8) return;
+
+      const rect = heroStage.getBoundingClientRect();
+      const mouseX = (e.clientX - rect.left) / rect.width - 0.5;
+      const mouseY = (e.clientY - rect.top) / rect.height - 0.5;
+
+      gsap.to(bonsaiImage, {
+        x: -mouseX * 22,
+        y: -mouseY * 18,
+        rotateZ: mouseX * 1.2,
+        scale: 1.02,
+        duration: 0.8,
+        ease: "power2.out",
+        overwrite: "auto",
+      });
+
+      if (bonsaiSheen) {
+        gsap.to(bonsaiSheen, {
+          xPercent: mouseX * 80,
+          opacity: Math.min(Math.abs(mouseX) * 1.4, 0.3),
+          duration: 0.6,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+      }
+    });
+
+    heroStage.addEventListener("mouseleave", () => {
+      gsap.to(bonsaiImage, {
+        x: 0,
+        y: 0,
+        rotateZ: 0,
+        scale: 1,
+        duration: 1.2,
+        ease: "power2.out",
+        overwrite: "auto",
+      });
+
+      if (bonsaiSheen) {
+        gsap.to(bonsaiSheen, {
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+      }
+    });
+  }
+
+  // Respiración viva sutil del bonsái (living presence)
+  if (leafScene) {
+    gsap.to(leafScene, {
+      y: -6,
+      duration: 4.8,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+    });
+  }
 
   // ========================================================================
   // ANIMACIÓN 3D HARDWARE DISPLAY ESTILO IPHONE (Sección Sobre Mí)
