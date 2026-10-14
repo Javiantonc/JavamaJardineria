@@ -123,6 +123,7 @@
     targetWind: 0,
     targetSpeed: 1,
     active: false,
+    opacity: 1,
     dpr: 1,
   };
 
@@ -130,6 +131,7 @@
   let lastT = performance.now();
 
   const resizeCanvas = () => {
+    if (!canvas) return;
     const rect = canvas.getBoundingClientRect();
     rain.dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.max(1, Math.floor(rect.width * rain.dpr));
@@ -151,8 +153,14 @@
   };
 
   const drawRain = () => {
+    if (!canvas) return;
     const w = canvas.clientWidth;
     const h = canvas.clientHeight;
+
+    if (!rain.active || (rain.opacity !== undefined && rain.opacity <= 0.01)) {
+      ctx.clearRect(0, 0, w, h);
+      return;
+    }
     ctx.clearRect(0, 0, w, h);
 
     rain.wind += (rain.targetWind - rain.wind) * 0.08;
@@ -161,6 +169,7 @@
     rain.targetSpeed += (1 - rain.targetSpeed) * 0.045;
 
     ctx.lineCap = "round";
+    const currentOpacity = rain.opacity !== undefined ? rain.opacity : 1;
 
     for (const drop of rain.drops) {
       drop.x += rain.wind * 0.55;
@@ -174,7 +183,8 @@
       if (drop.x < -20) drop.x = w + 10;
 
       const tilt = rain.wind * 1.8;
-      ctx.strokeStyle = `rgba(92, 112, 98, ${drop.alpha})`;
+      const alpha = drop.alpha * currentOpacity;
+      ctx.strokeStyle = `rgba(92, 112, 98, ${alpha})`;
       ctx.lineWidth = drop.thick;
       ctx.beginPath();
       ctx.moveTo(drop.x, drop.y);
@@ -700,15 +710,222 @@
     });
   });
 
+  // ========================================================================
+  // CICLO NATURAL EN TIERRA: DE LLUVIA A SALIDA DE SOL Y CRECIMIENTO BOTÁNICO
+  // ========================================================================
+  const soilStage = document.querySelector(".soil-stage");
+  const soilSun = document.getElementById("soilSun");
+  const soilSunAtmosphere = document.getElementById("soilSunAtmosphere");
+  const soilSunbeams = document.getElementById("soilSunbeams");
+  const soilSunTitle = document.getElementById("soilSunTitle");
+  const cycleLabel = document.getElementById("cycleLabel");
+  const cycleDot = document.getElementById("cycleDot");
+  const soilPoint1 = document.getElementById("soilPoint1");
+  const soilPoint2 = document.getElementById("soilPoint2");
+  const soilPoint3 = document.getElementById("soilPoint3");
+  const sunRaysRotator = document.getElementById("sunRaysRotator");
+  const gardenStems = gsap.utils.toArray(".growing-garden .plant-stem");
+  const gardenLeaves = gsap.utils.toArray(".growing-garden .plant-leaf");
+  const gardenFlowers = gsap.utils.toArray(".growing-garden .plant-flower");
+  const gardenSeedlings = gsap.utils.toArray(".growing-garden .seedling-item");
+
+  let soilTl = null;
+
+  if (soilStage) {
+    // 1. Estados iniciales en reposo
+    gsap.set(gardenStems, { scaleY: 0, transformOrigin: "bottom center" });
+    gsap.set(gardenLeaves, { scale: 0, opacity: 0 });
+    gsap.set(gardenFlowers, { scale: 0, opacity: 0, rotation: -20 });
+    gsap.set(gardenSeedlings, { scaleY: 0, opacity: 0, transformOrigin: "bottom center" });
+    if (soilSun) {
+      gsap.set(soilSun, { y: 90, scale: 0.5, opacity: 0, autoAlpha: 0 });
+    }
+
+    // 2. Timeline sincronizada con el scroll del usuario (Pinning estilo Apple Keynote)
+    soilTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: soilStage,
+        start: "top top",
+        end: "+=130%",
+        pin: true,
+        scrub: 1.1,
+        anticipatePin: 1,
+        onUpdate: (self) => {
+          const p = self.progress;
+
+          // Dinámica física de la lluvia: cesa progresivamente con el scroll
+          if (p < 0.4) {
+            rain.active = true;
+            rain.opacity = Math.max(0, 1 - (p / 0.32));
+          } else {
+            rain.opacity = 0;
+            rain.active = false;
+          }
+
+          // Actualización de estado en el badge y puntos del ciclo
+          if (cycleLabel && cycleDot) {
+            if (p < 0.32) {
+              cycleLabel.textContent = "Fase 01 · Lluvia nutricia";
+              cycleDot.style.backgroundColor = "#5c7062";
+              soilPoint1?.classList.add("active");
+              soilPoint2?.classList.remove("active");
+              soilPoint3?.classList.remove("active");
+            } else if (p < 0.65) {
+              cycleLabel.textContent = "Fase 02 · Luz y despertar solar";
+              cycleDot.style.backgroundColor = "#f59e0b";
+              soilPoint1?.classList.remove("active");
+              soilPoint2?.classList.add("active");
+              soilPoint3?.classList.remove("active");
+            } else {
+              cycleLabel.textContent = "Fase 03 · Brotación viva";
+              cycleDot.style.backgroundColor = "#2e7d32";
+              soilPoint1?.classList.remove("active");
+              soilPoint2?.classList.remove("active");
+              soilPoint3?.classList.add("active");
+            }
+          }
+        },
+      },
+    });
+
+    // FASE A: La lluvia se disipa, la atmósfera se ilumina con cálido amanecer dorado
+    soilTl
+      .to(
+        "#rain",
+        {
+          opacity: 0,
+          duration: 0.35,
+          ease: "power1.out",
+        },
+        0.05
+      )
+      .to(
+        soilSunAtmosphere,
+        {
+          opacity: 1,
+          duration: 0.45,
+          ease: "power1.inOut",
+        },
+        0.08
+      )
+      .to(
+        soilSunbeams,
+        {
+          opacity: 1,
+          duration: 0.45,
+          ease: "power1.inOut",
+        },
+        0.15
+      );
+
+    // FASE B: Emerge y asciende el Sol radiante en el cielo
+    if (soilSun) {
+      soilTl.to(
+        soilSun,
+        {
+          y: 0,
+          scale: 1.15,
+          opacity: 1,
+          autoAlpha: 1,
+          duration: 0.5,
+          ease: "power2.out",
+        },
+        0.12
+      );
+    }
+
+    if (sunRaysRotator) {
+      soilTl.to(
+        sunRaysRotator,
+        {
+          rotate: 55,
+          duration: 0.85,
+          ease: "none",
+        },
+        0.12
+      );
+    }
+
+    if (soilSunTitle) {
+      soilTl.to(
+        soilSunTitle,
+        {
+          color: "#b45309",
+          textShadow: "0 0 25px rgba(245, 158, 11, 0.35)",
+          duration: 0.4,
+          ease: "power1.out",
+        },
+        0.22
+      );
+    }
+
+    // FASE C: La tierra caliente y húmeda brota: primero plántulas y brotes tiernos
+    soilTl.to(
+      gardenSeedlings,
+      {
+        scaleY: 1,
+        opacity: 1,
+        duration: 0.35,
+        stagger: 0.03,
+        ease: "back.out(1.8)",
+      },
+      0.32
+    );
+
+    // FASE D: Los tallos botánicos crecen hacia la luz solar
+    soilTl.to(
+      gardenStems,
+      {
+        scaleY: 1,
+        duration: 0.45,
+        stagger: 0.035,
+        ease: "power2.out",
+      },
+      0.38
+    );
+
+    // FASE E: Las hojas se abren y despliegan con gracia orgánica
+    soilTl.to(
+      gardenLeaves,
+      {
+        scale: 1,
+        opacity: 1,
+        duration: 0.45,
+        stagger: 0.018,
+        ease: "back.out(1.5)",
+      },
+      0.48
+    );
+
+    // FASE F: Florecen los capullos y flores con el sol en su cenit
+    soilTl.to(
+      gardenFlowers,
+      {
+        scale: 1,
+        opacity: 1,
+        rotation: 0,
+        duration: 0.4,
+        stagger: 0.05,
+        ease: "back.out(2)",
+      },
+      0.62
+    );
+  }
+
+  // Observer de visibilidad para optimizar el rendimiento del canvas
   ScrollTrigger.create({
     trigger: ".soil-stage",
     start: "top bottom",
     end: "bottom top",
     onEnter: () => {
-      rain.active = true;
+      if (soilTl && soilTl.scrollTrigger && soilTl.scrollTrigger.progress < 0.4) {
+        rain.active = true;
+      }
     },
     onEnterBack: () => {
-      rain.active = true;
+      if (soilTl && soilTl.scrollTrigger && soilTl.scrollTrigger.progress < 0.4) {
+        rain.active = true;
+      }
     },
     onLeave: () => {
       rain.active = false;
