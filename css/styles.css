@@ -458,10 +458,12 @@ h2 {
 .reveal-copy {
   position: absolute;
   top: 50%;
-  left: clamp(2rem, 8vw, 6.5rem);
-  transform: translateY(-50%);
-  max-width: 36rem;
-  padding-right: 2rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 48rem;
+  padding: 0 clamp(1.5rem, 5vw, 3rem);
+  text-align: center;
   z-index: 10;
   pointer-events: none;
   opacity: 0;
@@ -1606,14 +1608,14 @@ h2 {
   }
 
   .reveal-copy {
-    top: auto;
-    bottom: 8vh;
-    left: 6vw;
-    right: 6vw;
-    transform: none;
-    max-width: none;
+    top: 50%;
+    left: 50%;
+    bottom: auto;
+    right: auto;
+    transform: translate(-50%, -50%);
+    max-width: 90vw;
     text-align: center;
-    padding-right: 0;
+    padding: 0 1rem;
   }
 }
 

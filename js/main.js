@@ -244,7 +244,7 @@
       ".leaf-overlay",
       {
         opacity: 0,
-        duration: 0.45,
+        duration: 0.35,
       },
       0
     )
@@ -252,68 +252,33 @@
     .fromTo(
       ".bonsai-sheen",
       {
-        xPercent: -120,
+        xPercent: -100,
         opacity: 0,
       },
       {
-        xPercent: 120,
+        xPercent: 100,
         opacity: 0.45,
-        duration: 0.7,
+        duration: 0.5,
         ease: "power1.inOut",
       },
-      0.08
+      0.05
     )
-    // 3. El marco del bonsái rota en 3D con perspectiva física y se coloca de lado
-    .to(
-      leafWrap,
-      {
-        scale: isMobile ? 0.48 : 0.54,
-        xPercent: isMobile ? 0 : 32,
-        yPercent: isMobile ? -22 : 0,
-        rotateY: isMobile ? 0 : -24,
-        rotateX: isMobile ? 8 : 10,
-        rotateZ: isMobile ? 0 : 2,
-        borderRadius: "28px",
-        borderColor: "rgba(255, 255, 255, 0.16)",
-        boxShadow: "0 35px 95px rgba(0, 0, 0, 0.38)",
-        duration: 1,
-      },
-      0
-    )
-    // 4. Contra-parallax de la fotografía interna del bonsái para profundidad estereoscópica real
-    .to(
-      bonsaiImage,
-      {
-        scale: 1.08,
-        xPercent: isMobile ? 0 : -5,
-        filter: "contrast(1.04) brightness(1.02)",
-        duration: 1,
-      },
-      0
-    )
-    // 5. Las letras cambian de blanco a negro al salir de la imagen
+    // 3. El texto inicial ("La naturaleza...") se retira hacia arriba
     .to(
       heroCopy,
       {
-        color: "#1d1d1f",
-        duration: 0.35,
+        autoAlpha: 0,
+        y: -40,
+        duration: 0.3,
       },
-      0
+      0.05
     )
-    .to(
-      ".hero-copy .eyebrow",
-      {
-        color: "#6e6e73",
-        duration: 0.35,
-      },
-      0
-    )
-    // 6. La barra de navegación se convierte en cristal esmerilado con texto negro
+    // 4. La barra de navegación se convierte en cristal esmerilado con texto negro
     .to(
       ".nav",
       {
         color: "#1d1d1f",
-        backgroundColor: "rgba(245, 245, 247, 0.82)",
+        backgroundColor: "rgba(245, 245, 247, 0.85)",
         borderBottomColor: "rgba(29, 29, 31, 0.08)",
         backdropFilter: "blur(20px)",
         duration: 0.35,
@@ -328,25 +293,51 @@
       },
       0
     )
-    // 7. El texto del hero inicial se retira con suavidad hacia arriba
+    // 5. El bonsái SE HACE CADA VEZ MÁS PEQUEÑO hacia el centro HASTA QUE DESAPARECE
     .to(
-      heroCopy,
+      leafWrap,
       {
+        scale: 0.01,
         autoAlpha: 0,
-        y: -45,
-        duration: 0.4,
+        xPercent: 0,
+        yPercent: 0,
+        rotateY: 0,
+        rotateX: 6,
+        rotateZ: 0,
+        borderRadius: "999px",
+        boxShadow: "0 10px 40px rgba(0, 0, 0, 0.12)",
+        duration: 0.75,
+        ease: "power2.inOut",
       },
-      0.18
+      0.15
     )
-    // 8. El texto lateral ("Un jardín no se decora. Se orquesta.") aparece en negro nítido
+    // 6. Efecto de profundidad y reducción en la fotografía interior mientras encoge
     .to(
+      bonsaiImage,
+      {
+        scale: 0.75,
+        filter: "brightness(0.95)",
+        duration: 0.75,
+        ease: "power2.inOut",
+      },
+      0.15
+    )
+    // 7. En el centro aparece con máxima elegancia el manifiesto de la colección ("Un jardín no se decora...")
+    .fromTo(
       revealCopy,
       {
-        autoAlpha: 1,
-        y: 0,
-        duration: 0.55,
+        autoAlpha: 0,
+        scale: 0.94,
+        y: 25,
       },
-      0.4
+      {
+        autoAlpha: 1,
+        scale: 1,
+        y: 0,
+        duration: 0.45,
+        ease: "power2.out",
+      },
+      0.55
     );
 
   // Micro-interacción física: inclinación 3D del bonsái y destello reactivo al mover el cursor
