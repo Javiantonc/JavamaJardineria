@@ -199,24 +199,98 @@
           <p class="eyebrow">Contacto</p>
           <h2>Hablemos de tu próximo espacio.</h2>
           <p class="contact-lead">
-            Cada proyecto comienza con una conversación sosegada sobre luz, sustrato y proporciones. Estaré encantado de escuchar tu visión.
+            Completa el formulario y te responderemos con una propuesta inicial y calendario en menos de 24 horas.
           </p>
-          <div class="contact-details">
-            <a href="mailto:hola@javamajardineria.com" class="contact-link">
-              <span class="link-label">Email</span>
-              <span class="link-value">hola@javamajardineria.com</span>
-            </a>
-            <a href="tel:+34600000000" class="contact-link">
-              <span class="link-label">Teléfono</span>
-              <span class="link-value">+34 600 000 000</span>
-            </a>
-            <div class="contact-link">
-              <span class="link-label">Ubicación</span>
-              <span class="link-value">Mallorca & Baleares</span>
+
+          <form id="contactForm" class="apple-form" action="https://formsubmit.co/antoncocajavier@gmail.com" method="POST">
+            <!-- Configuración FormSubmit para entrega a antoncocajavier@gmail.com -->
+            <input type="hidden" name="_subject" value="Nueva solicitud de trabajo — Javama Jardinería" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nombre">Nombre *</label>
+                <input type="text" id="nombre" name="Nombre" placeholder="Tu nombre" required autocomplete="given-name" />
+              </div>
+              <div class="form-group">
+                <label for="apellidos">Apellidos *</label>
+                <input type="text" id="apellidos" name="Apellidos" placeholder="Tus apellidos" required autocomplete="family-name" />
+              </div>
             </div>
-          </div>
-          <div class="contact-action">
-            <a href="mailto:hola@javamajardineria.com" class="btn-apple">Agendar primera visita</a>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Correo electrónico de contacto *</label>
+                <input type="email" id="email" name="Email" placeholder="tu@correo.com" required autocomplete="email" />
+              </div>
+              <div class="form-group">
+                <label for="telefono">Teléfono (opcional)</label>
+                <input type="tel" id="telefono" name="Telefono" placeholder="+34 600 000 000" autocomplete="tel" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Tipo de espacio *</label>
+              <div class="segmented-control">
+                <label class="segment-option">
+                  <input type="radio" name="Tipo_de_Espacio" value="Exterior" checked />
+                  <span class="segment-pill">Exterior</span>
+                </label>
+                <label class="segment-option">
+                  <input type="radio" name="Tipo_de_Espacio" value="Interior" />
+                  <span class="segment-pill">Interior</span>
+                </label>
+                <label class="segment-option">
+                  <input type="radio" name="Tipo_de_Espacio" value="Exterior e Interior (Ambos)" />
+                  <span class="segment-pill">Ambos</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="trabajo">Trabajo que hay que realizar *</label>
+              <div class="select-wrapper">
+                <select id="trabajo" name="Trabajo_a_Realizar" required>
+                  <option value="" disabled selected>Selecciona el tipo de trabajo</option>
+                  <option value="Diseño de jardín nuevo / Paisajismo">Diseño de jardín nuevo / Paisajismo</option>
+                  <option value="Poda de precisión y escultura vegetal">Poda de precisión y escultura vegetal</option>
+                  <option value="Cuidado del suelo, abono y nutrición orgánica">Cuidado del suelo, abono y nutrición orgánica</option>
+                  <option value="Instalación o ajuste de sistema de riego">Instalación o ajuste de sistema de riego</option>
+                  <option value="Restauración o remodelación de jardín">Restauración o remodelación de jardín</option>
+                  <option value="Mantenimiento periódico">Mantenimiento periódico</option>
+                  <option value="Otro trabajo específico">Otro trabajo específico</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="textarea-header">
+                <label for="observaciones">Observaciones</label>
+                <span class="char-counter" id="charCounter">0 / 500</span>
+              </div>
+              <textarea
+                id="observaciones"
+                name="Observaciones"
+                rows="4"
+                maxlength="500"
+                placeholder="Describe dimensiones estimadas, estado actual del terreno o detalles que consideres necesarios..."
+              ></textarea>
+            </div>
+
+            <div class="form-submit-row">
+              <button type="submit" id="submitBtn" class="btn-apple submit-btn">
+                <span class="btn-text">Enviar solicitud</span>
+                <span class="btn-arrow">→</span>
+              </button>
+            </div>
+
+            <div id="formStatus" class="form-status" aria-live="polite"></div>
+          </form>
+
+          <div class="direct-contact-hint">
+            <span>O si lo prefieres, escríbenos directamente a:</span>
+            <a href="mailto:antoncocajavier@gmail.com">antoncocajavier@gmail.com</a>
           </div>
         </div>
       </section>

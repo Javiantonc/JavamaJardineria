@@ -250,6 +250,70 @@
     },
   });
 
+  // Lógica del contador de observaciones (máximo 500 caracteres)
+  const obsTextarea = document.getElementById("observaciones");
+  const charCounter = document.getElementById("charCounter");
+
+  if (obsTextarea && charCounter) {
+    const updateCount = () => {
+      const len = obsTextarea.value.length;
+      charCounter.textContent = `${len} / 500`;
+      if (len >= 480) {
+        charCounter.style.color = "#d97706";
+      } else {
+        charCounter.style.color = "var(--muted)";
+      }
+    };
+    obsTextarea.addEventListener("input", updateCount);
+    updateCount();
+  }
+
+  // Envío del formulario de contacto a antoncocajavier@gmail.com
+  const contactForm = document.getElementById("contactForm");
+  const formStatus = document.getElementById("formStatus");
+  const submitBtn = document.getElementById("submitBtn");
+
+  if (contactForm) {
+    contactForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btnText = submitBtn ? submitBtn.querySelector(".btn-text") : null;
+      const originalText = btnText ? btnText.textContent : "Enviar solicitud";
+
+      if (btnText) btnText.textContent = "Enviando solicitud...";
+      if (submitBtn) submitBtn.disabled = true;
+      if (formStatus) {
+        formStatus.className = "form-status";
+        formStatus.textContent = "";
+      }
+
+      const formData = new FormData(contactForm);
+
+      try {
+        const response = await fetch(contactForm.action, {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        if (response.ok) {
+          formStatus.className = "form-status success";
+          formStatus.innerHTML = "✓ Solicitud enviada correctamente. Javier se pondrá en contacto contigo en menos de 24 horas.";
+          contactForm.reset();
+          if (charCounter) charCounter.textContent = "0 / 500";
+        } else {
+          contactForm.submit();
+        }
+      } catch (err) {
+        contactForm.submit();
+      } finally {
+        if (btnText) btnText.textContent = originalText;
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+  }
+
   window.addEventListener("scroll", onScrollPhysics, { passive: true });
   window.addEventListener("resize", resizeCanvas);
   resizeCanvas();
