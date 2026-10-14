@@ -388,6 +388,83 @@
         );
       });
     }
+
+    // ========================================================================
+    // INTERACCIÓN HOVER 3D MAGNÉTICA Y REFLEJO EN TARJETAS DE TRABAJOS
+    // ========================================================================
+    const workCards = document.querySelectorAll(".work-card");
+
+    workCards.forEach((card) => {
+      const inner = card.querySelector(".work-card-inner");
+      const img = card.querySelector(".work-media img");
+      const sheen = card.querySelector(".card-sheen");
+
+      if (!inner) return;
+
+      gsap.set(inner, {
+        transformStyle: "preserve-3d",
+        transformPerspective: 1000,
+      });
+
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const mouseX = x / rect.width - 0.5;
+        const mouseY = y / rect.height - 0.5;
+
+        // Posición del reflejo specular
+        if (sheen) {
+          card.style.setProperty("--mouse-x", `${(x / rect.width) * 100}%`);
+          card.style.setProperty("--mouse-y", `${(y / rect.height) * 100}%`);
+        }
+
+        // Inclinación 3D del cuerpo de la tarjeta
+        gsap.to(inner, {
+          rotateY: mouseX * 16,
+          rotateX: -mouseY * 16,
+          scale: 1.025,
+          duration: 0.5,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+
+        // Contra-parallax de la fotografía para profundidad tridimensional
+        if (img) {
+          gsap.to(img, {
+            x: -mouseX * 22,
+            y: -mouseY * 22,
+            scale: 1.1,
+            duration: 0.6,
+            ease: "power2.out",
+            overwrite: "auto",
+          });
+        }
+      });
+
+      card.addEventListener("mouseleave", () => {
+        gsap.to(inner, {
+          rotateY: 0,
+          rotateX: 0,
+          scale: 1,
+          duration: 0.9,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+
+        if (img) {
+          gsap.to(img, {
+            x: 0,
+            y: 0,
+            scale: 1,
+            duration: 0.9,
+            ease: "power2.out",
+            overwrite: "auto",
+          });
+        }
+      });
+    });
   }
 
   // Revelado de tarjetas de valoraciones
