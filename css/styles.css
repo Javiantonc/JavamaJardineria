@@ -622,29 +622,36 @@ h2 {
   will-change: opacity;
 }
 
-.soil-content {
-  position: relative;
-  z-index: 6;
-  max-width: 650px;
-  padding: 10vh 8vw 4vh;
+/* ==========================================================================
+   MAZO DE CAJAS SCROLLYTELLING (100% LEGIBLES EN CUALQUIER PANTALLA)
+   ========================================================================== */
+.soil-scrollytelling-container {
+  position: absolute;
+  top: 9vh;
+  left: 6vw;
+  width: min(520px, 90vw);
+  z-index: 10;
   pointer-events: auto;
 }
 
-.soil-cycle-badge {
+.soil-cycle-header {
+  margin-bottom: 1.1rem;
+}
+
+.soil-cycle-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 6px 14px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   font-size: 0.8rem;
-  font-weight: 500;
-  color: #374151;
-  margin-bottom: 1.2rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  font-weight: 600;
+  color: #1f2937;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
   transition: all 0.4s ease;
 }
 
@@ -656,86 +663,194 @@ h2 {
   transition: background-color 0.4s ease, transform 0.3s ease;
 }
 
-.soil-title {
-  font-size: clamp(2rem, 3.6vw, 3.1rem);
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.025em;
+.soil-stepper-tabs {
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  align-items: center;
+  gap: 8px;
+  margin-top: 0.7rem;
+  font-size: 0.78rem;
+  color: #6b7280;
 }
 
-.soil-title-sub {
-  color: #1d1d1f;
-  transition: color 0.4s ease;
-}
-
-.soil-title-main {
-  color: #6e6e73;
-  transition: all 0.5s ease;
-}
-
-.soil-desc {
-  margin-top: 1.1rem;
-  color: #4b5563;
-  font-size: 1.05rem;
-  line-height: 1.6;
-  max-width: 580px;
-}
-
-.soil-points {
-  list-style: none;
-  margin-top: 2rem;
-  display: grid;
-  gap: 0.85rem;
-}
-
-.soil-point-item {
-  display: grid;
-  grid-template-columns: 2.2rem 1fr;
-  gap: 0.9rem;
-  padding: 0.85rem 1.1rem;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.45);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  transition: all 0.4s ease;
+.step-tab {
+  padding: 4px 11px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  font-weight: 500;
+  color: #4b5563;
+  transition: all 0.35s ease;
 }
 
-.soil-point-item.active {
-  background: rgba(255, 255, 255, 0.92);
-  border-color: rgba(245, 158, 11, 0.3);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-  transform: translateX(6px);
+.step-tab.active {
+  background: #111827;
+  color: #ffffff;
+  border-color: #111827;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
 }
 
-.soil-point-item span {
+.step-arrow {
   color: #9ca3af;
-  font-size: 0.82rem;
+  font-size: 0.9rem;
+}
+
+.soil-cards-deck {
+  position: relative;
+  width: 100%;
+  min-height: 380px;
+}
+
+.soil-read-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border-radius: 20px;
+  padding: 2.2rem 2.2rem 1.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.09), 0 4px 14px rgba(0, 0, 0, 0.04);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(30px);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.45s;
+  will-change: transform, opacity;
+}
+
+.soil-read-card.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.read-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.1rem;
+}
+
+.card-icon-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
-  padding-top: 2px;
 }
 
-.soil-point-item.active span {
-  color: #d97706;
+.card-icon-badge.rain-badge {
+  background: rgba(92, 112, 98, 0.14);
+  color: #27402d;
 }
 
-.soil-point-item strong {
+.card-icon-badge.sun-badge {
+  background: rgba(245, 158, 11, 0.16);
+  color: #b45309;
+}
+
+.card-icon-badge.tree-badge {
+  background: rgba(46, 125, 50, 0.16);
+  color: #1b5e20;
+}
+
+.card-step-num {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #9ca3af;
+  text-transform: uppercase;
+}
+
+.card-main-title {
+  font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
   color: #111827;
-  font-weight: 600;
+  margin-bottom: 0.85rem;
 }
 
+.card-body-text {
+  font-size: 1.02rem;
+  line-height: 1.62;
+  color: #374151;
+  margin-bottom: 1.2rem;
+}
+
+.card-features-list {
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  margin-bottom: 1.2rem;
+}
+
+.card-features-list li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.feat-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(46, 125, 50, 0.14);
+  color: #2e7d32;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.card-scroll-prompt {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #4b5563;
+  padding-top: 0.6rem;
+}
+
+.prompt-arrow {
+  color: #d97706;
+  font-size: 1.05rem;
+  animation: bounceHint 2s infinite;
+}
+
+.card-scroll-prompt.completed {
+  color: #2e7d32;
+}
+
+@keyframes bounceHint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* ==========================================================================
+   JARDÍN BOTÁNICO: ÁRBOLES Y PLANTAS EN CRECIMIENTO
+   ========================================================================== */
 .growing-garden {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 44vh;
-  min-height: 280px;
-  max-height: 480px;
+  height: 48vh;
+  min-height: 300px;
+  max-height: 520px;
   z-index: 5;
   pointer-events: none;
   overflow: visible;
@@ -767,6 +882,24 @@ h2 {
   transform-box: fill-box;
 }
 
+/* Estilos de Árboles */
+.tree-trunk-group {
+  transform-origin: bottom center;
+  will-change: transform;
+}
+
+.tree-trunk-path,
+.tree-branch-path {
+  transform-origin: bottom center;
+}
+
+.tree-foliage-cloud {
+  transform-origin: center center;
+  will-change: transform, opacity;
+  transition: filter 0.4s ease;
+}
+
+/* Estilos de Plantas */
 .plant-stem {
   transform-origin: bottom center;
   will-change: transform;
@@ -797,41 +930,50 @@ h2 {
     min-height: 100vh;
     height: 100vh;
   }
-  .soil-content {
-    padding: 8vh 6vw 2vh;
-    max-width: 100%;
+  .soil-scrollytelling-container {
+    top: 6.5vh;
+    left: 4vw;
+    right: 4vw;
+    width: auto;
   }
-  .soil-title {
-    font-size: 1.85rem;
+  .soil-read-card {
+    padding: 1.4rem 1.3rem 1.2rem;
+    border-radius: 16px;
   }
-  .soil-desc {
-    font-size: 0.95rem;
+  .card-main-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.6rem;
+  }
+  .card-body-text {
+    font-size: 0.9rem;
     line-height: 1.5;
-    margin-top: 0.7rem;
+    margin-bottom: 0.9rem;
   }
-  .soil-points {
-    margin-top: 1.2rem;
-    gap: 0.55rem;
+  .card-features-list {
+    margin-bottom: 0.8rem;
+    gap: 0.4rem;
   }
-  .soil-point-item {
-    padding: 0.7rem 0.85rem;
-    font-size: 0.88rem;
+  .card-features-list li {
+    font-size: 0.84rem;
+  }
+  .soil-cards-deck {
+    min-height: 310px;
   }
   .soil-sun-container {
-    top: 6%;
-    right: 5%;
-    width: 90px;
-    height: 90px;
+    top: 5%;
+    right: 4%;
+    width: 85px;
+    height: 85px;
   }
   .sun-core {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
   }
   .sun-flare-streak {
-    width: 280px;
+    width: 260px;
   }
   .growing-garden {
-    height: 35vh;
+    height: 36vh;
     min-height: 220px;
   }
 }

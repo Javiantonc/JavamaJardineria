@@ -174,47 +174,86 @@
         <!-- Canvas de lluvia física reactiva al scroll -->
         <canvas id="rain" aria-hidden="true"></canvas>
 
-        <!-- Contenido editorial de la sección -->
-        <div class="soil-content">
-          <div class="soil-cycle-badge" id="soilCycleBadge">
-            <span class="cycle-dot" id="cycleDot"></span>
-            <span class="cycle-label" id="cycleLabel">Fase 01 · Lluvia nutricia</span>
+        <!-- Interfaz editorial Scrollytelling: Las cajas que se van leyendo con el scroll -->
+        <div class="soil-scrollytelling-container">
+          <div class="soil-cycle-header">
+            <div class="soil-cycle-pill" id="soilCyclePill">
+              <span class="cycle-dot" id="cycleDot"></span>
+              <span class="cycle-label" id="cycleLabel">01 de 03 · Ciclo de la Lluvia</span>
+            </div>
+            <div class="soil-stepper-tabs" aria-hidden="true">
+              <span class="step-tab active" id="tab1">01 Lluvia</span>
+              <span class="step-arrow">›</span>
+              <span class="step-tab" id="tab2">02 El Sol</span>
+              <span class="step-arrow">›</span>
+              <span class="step-tab" id="tab3">03 Árboles y Plantas</span>
+            </div>
           </div>
 
-          <p class="eyebrow">Ciclo natural · Tierra y Luz</p>
-
-          <h2 class="soil-title">
-            <span class="soil-title-sub">La lluvia nutre el suelo.</span>
-            <span class="soil-title-main" id="soilSunTitle">El sol hace brotar la vida.</span>
-          </h2>
-
-          <p class="soil-desc">
-            El agua penetra en calma donde el suelo la necesita. A medida que el cielo se abre y el sol ilumina el jardín, la tierra templada activa los brotes, transformando cada gota en crecimiento vivo.
-          </p>
-
-          <ul class="soil-points">
-            <li class="soil-point-item active" id="soilPoint1">
-              <span>01</span>
-              <div>
-                <strong>Lluvia y suelo vivo:</strong> Riego medido y tierra esponjosa que absorbe y retiene la humedad natural.
+          <!-- Mazo de Cajas de Lectura Secuencial (100% legibles, nítidas y elegantes) -->
+          <div class="soil-cards-deck">
+            
+            <!-- CAJA 1: LA LLUVIA -->
+            <article class="soil-read-card active" id="soilCard1">
+              <div class="read-card-header">
+                <span class="card-icon-badge rain-badge">🌧️ Riego y Tierra</span>
+                <span class="card-step-num">Fase 01</span>
               </div>
-            </li>
-            <li class="soil-point-item" id="soilPoint2">
-              <span>02</span>
-              <div>
-                <strong>Amanecer y calor:</strong> La radiación solar templada disipa la tormenta y activa la fotosíntesis.
+              <h3 class="card-main-title">La lluvia nutre la tierra en profundidad</h3>
+              <p class="card-body-text">
+                El agua penetra con suavidad donde el suelo vivo la necesita. Cada gota cala despacio, oxigenando la materia orgánica viva y preparando las raíces sin compactar el terreno jamás.
+              </p>
+              <ul class="card-features-list">
+                <li><span class="feat-check">✓</span> Materia orgánica esponjosa, oxigenada y viva</li>
+                <li><span class="feat-check">✓</span> Humedad profunda, duradera e infrecuente</li>
+              </ul>
+              <div class="card-scroll-prompt">
+                <span class="prompt-arrow">↓</span> Desliza para que salga el sol y se despeje el cielo
               </div>
-            </li>
-            <li class="soil-point-item" id="soilPoint3">
-              <span>03</span>
-              <div>
-                <strong>Brotación permanente:</strong> Tallos, helechos y flores nacen con vigor y armonía con su microclima.
+            </article>
+
+            <!-- CAJA 2: EL SOL -->
+            <article class="soil-read-card" id="soilCard2">
+              <div class="read-card-header">
+                <span class="card-icon-badge sun-badge">☀️ Luz y Calor</span>
+                <span class="card-step-num">Fase 02</span>
               </div>
-            </li>
-          </ul>
+              <h3 class="card-main-title">El sol disipa la lluvia y aporta calor vital</h3>
+              <p class="card-body-text">
+                Las nubes se abren y la radiación solar inunda el jardín con luz dorada. El calor templado eleva la temperatura biológica del humus, reactiva las raíces y pone en marcha la fotosíntesis.
+              </p>
+              <ul class="card-features-list">
+                <li><span class="feat-check">✓</span> La lluvia cesa y el cielo se ilumina de oro</li>
+                <li><span class="feat-check">✓</span> Activación biológica de savia y raíces</li>
+              </ul>
+              <div class="card-scroll-prompt">
+                <span class="prompt-arrow">↓</span> Sigue deslizando para ver brotar árboles y plantas
+              </div>
+            </article>
+
+            <!-- CAJA 3: ÁRBOLES Y PLANTAS -->
+            <article class="soil-read-card" id="soilCard3">
+              <div class="read-card-header">
+                <span class="card-icon-badge tree-badge">🌳 Árboles y Vida</span>
+                <span class="card-step-num">Fase 03</span>
+              </div>
+              <h3 class="card-main-title">Crecen árboles nobles y brotan las plantas</h3>
+              <p class="card-body-text">
+                La combinación de agua y luz solar culmina en vida: emergen árboles de porte escultórico con copas frondosas, helechos silvestres y flores abiertas en pleno vigor y armonía permanente.
+              </p>
+              <ul class="card-features-list">
+                <li><span class="feat-check">✓</span> Árboles de tronco noble y arquitectura viva</li>
+                <li><span class="feat-check">✓</span> Especies botánicas autóctonas en equilibrio</li>
+              </ul>
+              <div class="card-scroll-prompt completed">
+                <span class="prompt-arrow">✓</span> Ciclo natural completado en perfecta armonía
+              </div>
+            </article>
+
+          </div>
         </div>
 
-        <!-- Jardín Botánico que crece con el sol -->
+        <!-- Jardín Botánico: Árboles y Plantas que crecen con el sol -->
         <div class="growing-garden" id="growingGarden" aria-hidden="true">
           <!-- Bruma de rocío y partículas doradas -->
           <div class="botanical-particles" id="botanicalParticles"></div>
@@ -222,14 +261,35 @@
           <!-- Capa de suelo rico en humus y musgo -->
           <div class="soil-bed-gradient"></div>
 
-          <!-- SVG con plantas botánicas de autor -->
+          <!-- SVG con ÁRBOLES Y PLANTAS botánicas de autor -->
           <svg
             class="growing-garden-svg"
             id="gardenSvg"
-            viewBox="0 0 1440 420"
+            viewBox="0 0 1440 440"
             preserveAspectRatio="xMidYMax meet"
           >
             <defs>
+              <linearGradient id="gradWoodBark" x1="0%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" stop-color="#21150c" />
+                <stop offset="45%" stop-color="#3d2716" />
+                <stop offset="85%" stop-color="#5a3d24" />
+                <stop offset="100%" stop-color="#735235" />
+              </linearGradient>
+              <linearGradient id="gradFoliageCloud" x1="0%" y1="100%" x2="40%" y2="0%">
+                <stop offset="0%" stop-color="#122a15" />
+                <stop offset="50%" stop-color="#1e4620" />
+                <stop offset="100%" stop-color="#388e3c" />
+              </linearGradient>
+              <linearGradient id="gradFoliageHighlight" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#255d28" />
+                <stop offset="55%" stop-color="#4caf50" />
+                <stop offset="100%" stop-color="#8bc34a" />
+              </linearGradient>
+              <linearGradient id="gradMapleCloud" x1="0%" y1="100%" x2="60%" y2="0%">
+                <stop offset="0%" stop-color="#1b461e" />
+                <stop offset="60%" stop-color="#3b7d30" />
+                <stop offset="100%" stop-color="#7cb342" />
+              </linearGradient>
               <linearGradient id="gradStem" x1="0%" y1="100%" x2="0%" y2="0%">
                 <stop offset="0%" stop-color="#1b431e" />
                 <stop offset="60%" stop-color="#2e7d32" />
@@ -268,352 +328,379 @@
             <!-- Base de Tierra y Musgo Ondulado -->
             <path
               class="ground-layer"
-              d="M0,420 L0,375 Q160,355 360,378 T800,360 T1220,375 Q1350,360 1440,372 L1440,420 Z"
+              d="M0,440 L0,395 Q160,375 360,398 T800,380 T1220,395 Q1350,380 1440,392 L1440,440 Z"
               fill="url(#gradGroundSoil)"
             />
             <path
               class="moss-layer"
-              d="M0,385 Q120,365 260,380 T600,370 T980,382 T1320,368 Q1390,372 1440,378"
+              d="M0,405 Q120,385 260,400 T600,390 T980,402 T1320,388 Q1390,392 1440,398"
               fill="none"
               stroke="#386b35"
               stroke-width="5"
               stroke-linecap="round"
-              opacity="0.7"
+              opacity="0.75"
             />
 
-            <!-- Plántulas y brotes tiernos en el suelo -->
+            <!-- Plántulas tiernas en el suelo -->
             <g class="garden-seedling-group">
-              <!-- Brote 1 -->
-              <g class="seedling-item" transform="translate(110, 375)">
+              <g class="seedling-item" transform="translate(110, 395)">
                 <path class="seedling-stem" d="M0,0 C-1,-12 -2,-20 0,-28" stroke="#4caf50" stroke-width="2.5" fill="none" stroke-linecap="round" />
                 <path class="seedling-leaf" d="M0,-28 C-6,-32 -14,-30 -12,-22 C-10,-17 -3,-24 0,-28 Z" fill="#81c784" />
                 <path class="seedling-leaf" d="M0,-28 C6,-32 14,-30 12,-22 C10,-17 3,-24 0,-28 Z" fill="#aed581" />
               </g>
-              <!-- Brote 2 -->
-              <g class="seedling-item" transform="translate(390, 370)">
+              <g class="seedling-item" transform="translate(390, 390)">
                 <path class="seedling-stem" d="M0,0 C2,-14 3,-22 0,-32" stroke="#4caf50" stroke-width="2.5" fill="none" stroke-linecap="round" />
                 <path class="seedling-leaf" d="M0,-32 C-7,-36 -15,-33 -13,-25 C-11,-19 -3,-27 0,-32 Z" fill="#81c784" />
                 <path class="seedling-leaf" d="M0,-32 C7,-36 15,-33 13,-25 C11,-19 3,-27 0,-32 Z" fill="#c5e1a5" />
               </g>
-              <!-- Brote 3 -->
-              <g class="seedling-item" transform="translate(680, 368)">
+              <g class="seedling-item" transform="translate(740, 388)">
                 <path class="seedling-stem" d="M0,0 C-1,-15 1,-24 0,-34" stroke="#4caf50" stroke-width="2.5" fill="none" stroke-linecap="round" />
                 <path class="seedling-leaf" d="M0,-34 C-8,-38 -16,-34 -14,-26 C-12,-20 -3,-28 0,-34 Z" fill="#81c784" />
                 <path class="seedling-leaf" d="M0,-34 C8,-38 16,-34 14,-26 C12,-20 3,-28 0,-34 Z" fill="#aed581" />
               </g>
-              <!-- Brote 4 -->
-              <g class="seedling-item" transform="translate(1040, 374)">
-                <path class="seedling-stem" d="M0,0 C2,-12 1,-22 0,-30" stroke="#4caf50" stroke-width="2.5" fill="none" stroke-linecap="round" />
-                <path class="seedling-leaf" d="M0,-30 C-7,-34 -14,-31 -12,-24 C-10,-18 -3,-25 0,-30 Z" fill="#81c784" />
-                <path class="seedling-leaf" d="M0,-30 C7,-34 14,-31 12,-24 C10,-18 3,-25 0,-30 Z" fill="#c5e1a5" />
-              </g>
-              <!-- Brote 5 -->
-              <g class="seedling-item" transform="translate(1330, 372)">
+              <g class="seedling-item" transform="translate(1330, 392)">
                 <path class="seedling-stem" d="M0,0 C-2,-14 -1,-22 0,-29" stroke="#4caf50" stroke-width="2.5" fill="none" stroke-linecap="round" />
                 <path class="seedling-leaf" d="M0,-29 C-6,-33 -13,-30 -11,-23 C-9,-17 -2,-24 0,-29 Z" fill="#81c784" />
                 <path class="seedling-leaf" d="M0,-29 C6,-33 13,-30 11,-23 C9,-17 2,-24 0,-29 Z" fill="#aed581" />
               </g>
             </g>
 
+            <!-- ==============================================================
+                 ÁRBOL 1: GRAN ÁRBOL ESCULTÓRICO NIWAKI / BONSAI DE AUTOR (Derecha)
+                 ============================================================== -->
+            <g class="garden-tree tree-niwaki" id="tree1Niwaki">
+              <!-- Tronco y ramas principales leñosas con curvatura orgánica -->
+              <g class="tree-trunk-group" style="transform-origin: 1080px 440px;">
+                <!-- Tronco macizo principal -->
+                <path
+                  class="tree-trunk-path"
+                  d="M1095,440 C1090,370 1065,300 1040,240 C1025,200 1030,165 1045,115"
+                  stroke="url(#gradWoodBark)"
+                  stroke-width="15"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <!-- Veta y relieve de madera envejecida (Jin / Shari) -->
+                <path
+                  d="M1092,430 C1086,375 1064,310 1042,250 C1032,225 1036,190 1046,140"
+                  stroke="#8d6e53"
+                  stroke-width="3"
+                  fill="none"
+                  opacity="0.8"
+                />
+                <!-- Rama izquierda baja -->
+                <path
+                  class="tree-branch-path"
+                  d="M1060,300 C1015,280 965,285 915,260"
+                  stroke="url(#gradWoodBark)"
+                  stroke-width="9"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <!-- Rama derecha media -->
+                <path
+                  class="tree-branch-path"
+                  d="M1045,245 C1100,225 1160,230 1210,210"
+                  stroke="url(#gradWoodBark)"
+                  stroke-width="8.5"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <!-- Rama superior izquierda -->
+                <path
+                  class="tree-branch-path"
+                  d="M1035,185 C995,160 955,170 920,150"
+                  stroke="url(#gradWoodBark)"
+                  stroke-width="7"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <!-- Rama superior derecha hacia el sol -->
+                <path
+                  class="tree-branch-path"
+                  d="M1042,150 C1080,125 1130,130 1170,105"
+                  stroke="url(#gradWoodBark)"
+                  stroke-width="6.5"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <!-- Espolón de madera muerta Jin de bonsái -->
+                <path
+                  d="M1045,115 L1052,90 L1056,98"
+                  stroke="#f1ebe1"
+                  stroke-width="3.5"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+              </g>
+
+              <!-- Nubes escultóricas de follaje (Tamamono) del árbol -->
+              <!-- Nube 1: Rama izquierda baja -->
+              <g class="tree-foliage-cloud" style="transform-origin: 915px 260px;">
+                <path
+                  d="M915,260 C870,250 835,265 825,285 C815,310 855,325 895,320 C935,315 955,290 940,270 C935,262 925,260 915,260 Z"
+                  fill="url(#gradFoliageCloud)"
+                />
+                <path
+                  d="M910,258 C875,252 850,265 845,278 C860,285 890,275 920,272 Z"
+                  fill="url(#gradFoliageHighlight)"
+                  opacity="0.85"
+                />
+              </g>
+
+              <!-- Nube 2: Rama derecha media -->
+              <g class="tree-foliage-cloud" style="transform-origin: 1210px 210px;">
+                <path
+                  d="M1210,210 C1160,200 1130,215 1120,235 C1110,260 1150,278 1195,272 C1240,265 1265,240 1250,220 C1240,212 1225,210 1210,210 Z"
+                  fill="url(#gradFoliageCloud)"
+                />
+                <path
+                  d="M1205,208 C1170,202 1145,215 1140,228 C1160,235 1190,225 1220,222 Z"
+                  fill="url(#gradFoliageHighlight)"
+                  opacity="0.85"
+                />
+              </g>
+
+              <!-- Nube 3: Rama superior izquierda -->
+              <g class="tree-foliage-cloud" style="transform-origin: 920px 150px;">
+                <path
+                  d="M920,150 C880,140 850,155 842,175 C835,195 870,210 905,205 C940,200 958,180 948,162 C940,152 930,150 920,150 Z"
+                  fill="url(#gradFoliageCloud)"
+                />
+                <path
+                  d="M915,148 C885,142 865,155 860,166 C875,172 900,165 925,162 Z"
+                  fill="url(#gradFoliageHighlight)"
+                  opacity="0.85"
+                />
+              </g>
+
+              <!-- Nube 4: Rama superior derecha hacia el sol -->
+              <g class="tree-foliage-cloud" style="transform-origin: 1170px 105px;">
+                <path
+                  d="M1170,105 C1130,95 1105,110 1098,128 C1090,148 1125,162 1160,158 C1195,152 1215,135 1205,118 C1198,108 1182,105 1170,105 Z"
+                  fill="url(#gradFoliageCloud)"
+                />
+                <path
+                  d="M1165,102 C1138,98 1120,108 1115,118 C1130,125 1155,118 1180,115 Z"
+                  fill="url(#gradFoliageHighlight)"
+                  opacity="0.85"
+                />
+              </g>
+
+              <!-- Nube 5: Corona Ápice del Árbol (La copa superior) -->
+              <g class="tree-foliage-cloud" style="transform-origin: 1045px 95px;">
+                <path
+                  d="M1045,95 C1000,85 970,100 960,120 C950,142 990,158 1035,152 C1080,148 1105,128 1095,110 C1085,98 1065,95 1045,95 Z"
+                  fill="url(#gradFoliageCloud)"
+                />
+                <path
+                  d="M1040,92 C1010,88 985,98 980,110 C1000,116 1030,110 1055,108 Z"
+                  fill="url(#gradFoliageHighlight)"
+                  opacity="0.9"
+                />
+              </g>
+            </g>
+
+            <!-- ==============================================================
+                 ÁRBOL 2: ÁRBOL SILVESTRE DE COPA GRÁCIL / ARCE (Centro-Izquierda)
+                 ============================================================== -->
+            <g class="garden-tree tree-acer" id="tree2Acer">
+              <!-- Tronco grácil y ramificación natural -->
+              <g class="tree-trunk-group" style="transform-origin: 620px 440px;">
+                <path
+                  class="tree-trunk-path"
+                  d="M625,440 C630,350 610,265 585,195 C575,160 580,130 590,95"
+                  stroke="url(#gradWoodBark)"
+                  stroke-width="10"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <!-- Rama izquierda -->
+                <path
+                  class="tree-branch-path"
+                  d="M605,280 C565,245 525,240 485,225"
+                  stroke="url(#gradWoodBark)"
+                  stroke-width="6"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <!-- Rama derecha -->
+                <path
+                  class="tree-branch-path"
+                  d="M592,230 C640,195 690,200 735,185"
+                  stroke="url(#gradWoodBark)"
+                  stroke-width="6"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <!-- Rama media -->
+                <path
+                  class="tree-branch-path"
+                  d="M585,165 C550,140 520,145 490,130"
+                  stroke="url(#gradWoodBark)"
+                  stroke-width="5"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+              </g>
+
+              <!-- Follaje de la copa del arce silvestre -->
+              <g class="tree-foliage-cloud" style="transform-origin: 485px 225px;">
+                <path d="M485,225 C450,215 425,230 420,245 C415,265 445,278 475,272 C505,268 520,248 510,235 Z" fill="url(#gradMapleCloud)" />
+              </g>
+              <g class="tree-foliage-cloud" style="transform-origin: 735px 185px;">
+                <path d="M735,185 C700,175 675,190 670,205 C665,225 695,238 725,232 C755,228 770,208 760,195 Z" fill="url(#gradMapleCloud)" />
+              </g>
+              <g class="tree-foliage-cloud" style="transform-origin: 490px 130px;">
+                <path d="M490,130 C455,120 430,135 425,150 C420,170 450,182 480,178 C510,172 525,152 515,140 Z" fill="url(#gradMapleCloud)" />
+              </g>
+              <g class="tree-foliage-cloud" style="transform-origin: 590px 95px;">
+                <path d="M590,95 C550,85 520,100 512,118 C505,138 540,152 575,148 C610,142 628,125 618,110 Z" fill="url(#gradMapleCloud)" />
+                <path d="M585,92 C558,88 540,98 535,108 C550,115 575,108 600,105 Z" fill="url(#gradFoliageHighlight)" opacity="0.8" />
+              </g>
+            </g>
+
+            <!-- ==============================================================
+                 PLANTAS BOTÁNICAS: TROPICALES, HELECHOS, JAZMÍN Y BAMBÚ
+                 ============================================================== -->
             <!-- PLANTA 1: Hoja Tropical Escultural (Izquierda) -->
             <g class="garden-specimen specimen-1" id="plant1">
-              <!-- Tallo principal -->
               <path
                 class="plant-stem"
-                d="M170,415 C165,340 145,260 120,165"
+                d="M170,435 C165,360 145,280 120,185"
                 stroke="url(#gradStem)"
                 stroke-width="5"
                 fill="none"
                 stroke-linecap="round"
               />
-              <!-- Tallo secundario -->
               <path
                 class="plant-stem"
-                d="M165,370 C185,310 215,260 235,195"
+                d="M165,390 C185,330 215,280 235,215"
                 stroke="url(#gradStem)"
                 stroke-width="4"
                 fill="none"
                 stroke-linecap="round"
               />
-              <!-- Hoja grande izquierda -->
-              <g class="plant-leaf" style="transform-origin: 120px 165px;">
+              <g class="plant-leaf" style="transform-origin: 120px 185px;">
                 <path
-                  d="M120,165 C90,140 45,130 30,175 C18,210 50,250 85,255 C120,260 130,210 120,165 Z"
+                  d="M120,185 C90,160 45,150 30,195 C18,230 50,270 85,275 C120,280 130,230 120,185 Z"
                   fill="url(#gradLeafLush)"
                 />
-                <path d="M120,165 C95,200 80,230 65,245" stroke="#81c784" stroke-width="1.8" fill="none" opacity="0.6" />
-                <path d="M102,185 C80,185 62,175 48,168" stroke="#81c784" stroke-width="1.2" fill="none" opacity="0.5" />
-                <path d="M92,208 C75,215 58,218 45,225" stroke="#81c784" stroke-width="1.2" fill="none" opacity="0.5" />
+                <path d="M120,185 C95,220 80,250 65,265" stroke="#81c784" stroke-width="1.8" fill="none" opacity="0.6" />
               </g>
-              <!-- Hoja derecha -->
-              <g class="plant-leaf" style="transform-origin: 235px 195px;">
+              <g class="plant-leaf" style="transform-origin: 235px 215px;">
                 <path
-                  d="M235,195 C255,160 295,150 310,185 C320,220 290,260 255,265 C230,268 220,225 235,195 Z"
+                  d="M235,215 C255,180 295,170 310,205 C320,240 290,280 255,285 C230,288 220,245 235,215 Z"
                   fill="url(#gradLeafGolden)"
-                />
-                <path d="M235,195 C260,225 275,245 290,258" stroke="#aed581" stroke-width="1.8" fill="none" opacity="0.6" />
-                <path d="M250,212 C270,210 288,200 300,190" stroke="#aed581" stroke-width="1.2" fill="none" opacity="0.5" />
-              </g>
-              <!-- Hoja baja joven -->
-              <g class="plant-leaf" style="transform-origin: 155px 280px;">
-                <path
-                  d="M155,280 C130,260 100,270 95,295 C90,320 120,335 145,330 C165,325 165,295 155,280 Z"
-                  fill="url(#gradLeafLush)"
                 />
               </g>
             </g>
 
             <!-- PLANTA 2: Helecho Arquitectónico Imperial (Centro-Izquierda) -->
             <g class="garden-specimen specimen-2" id="plant2">
-              <!-- Raquis del helecho -->
               <path
                 class="plant-stem"
-                d="M320,418 C325,320 345,210 395,95"
+                d="M320,438 C325,340 345,230 395,115"
                 stroke="url(#gradStem)"
                 stroke-width="4.5"
                 fill="none"
                 stroke-linecap="round"
               />
-              <!-- Pinnas del helecho distribuidas -->
-              <g class="plant-leaf" style="transform-origin: 326px 335px;">
-                <path d="M326,335 C295,330 260,345 245,335 C270,320 305,322 326,335 Z" fill="url(#gradFern)" />
+              <!-- Pinnas del helecho -->
+              <g class="plant-leaf" style="transform-origin: 326px 355px;">
+                <path d="M326,355 C295,350 260,365 245,355 C270,340 305,342 326,355 Z" fill="url(#gradFern)" />
               </g>
-              <g class="plant-leaf" style="transform-origin: 328px 330px;">
-                <path d="M328,330 C360,320 395,330 410,320 C385,310 350,312 328,330 Z" fill="url(#gradFern)" />
+              <g class="plant-leaf" style="transform-origin: 328px 350px;">
+                <path d="M328,350 C360,340 395,350 410,340 C385,330 350,332 328,350 Z" fill="url(#gradFern)" />
               </g>
-              <g class="plant-leaf" style="transform-origin: 335px 280px;">
-                <path d="M335,280 C295,270 255,280 235,268 C265,255 305,262 335,280 Z" fill="url(#gradFern)" />
+              <g class="plant-leaf" style="transform-origin: 335px 300px;">
+                <path d="M335,300 C295,290 255,300 235,288 C265,275 305,282 335,300 Z" fill="url(#gradFern)" />
               </g>
-              <g class="plant-leaf" style="transform-origin: 338px 275px;">
-                <path d="M338,275 C375,260 415,268 435,255 C405,245 365,250 338,275 Z" fill="url(#gradFern)" />
+              <g class="plant-leaf" style="transform-origin: 338px 295px;">
+                <path d="M338,295 C375,280 415,288 435,275 C405,265 365,270 338,295 Z" fill="url(#gradFern)" />
               </g>
-              <g class="plant-leaf" style="transform-origin: 348px 225px;">
-                <path d="M348,225 C310,210 270,215 250,200 C280,190 320,202 348,225 Z" fill="url(#gradFern)" />
-              </g>
-              <g class="plant-leaf" style="transform-origin: 352px 220px;">
-                <path d="M352,220 C390,200 428,205 448,190 C420,180 380,190 352,220 Z" fill="url(#gradFern)" />
-              </g>
-              <g class="plant-leaf" style="transform-origin: 366px 170px;">
-                <path d="M366,170 C335,150 300,152 280,138 C310,130 345,145 366,170 Z" fill="url(#gradFern)" />
-              </g>
-              <g class="plant-leaf" style="transform-origin: 372px 165px;">
-                <path d="M372,165 C405,145 440,148 458,135 C430,128 395,140 372,165 Z" fill="url(#gradFern)" />
-              </g>
-              <!-- Ápice tierno del helecho -->
-              <g class="plant-leaf" style="transform-origin: 395px 95px;">
-                <path d="M395,95 C385,75 400,60 410,70 C415,80 405,92 395,95 Z" fill="#81c784" />
-                <path d="M388,118 C375,105 370,88 382,90 C390,95 390,110 388,118 Z" fill="#66bb6a" />
+              <g class="plant-leaf" style="transform-origin: 395px 115px;">
+                <path d="M395,115 C385,95 400,80 410,90 C415,100 405,112 395,115 Z" fill="#81c784" />
               </g>
             </g>
 
-            <!-- PLANTA 3: Rama de Jazmín con Flores Silvestres (Centro) -->
+            <!-- PLANTA 3: Rama de Jazmín con Flores (Centro) -->
             <g class="garden-specimen specimen-3" id="plant3">
               <path
                 class="plant-stem"
-                d="M520,418 C515,330 535,260 510,170"
+                d="M480,438 C475,350 495,280 470,190"
                 stroke="url(#gradStem)"
-                stroke-width="4"
+                stroke-width="3.5"
                 fill="none"
                 stroke-linecap="round"
               />
               <path
                 class="plant-stem"
-                d="M522,275 C490,240 455,215 430,170"
+                d="M482,295 C450,260 415,235 390,190"
                 stroke="url(#gradStem)"
                 stroke-width="3"
                 fill="none"
                 stroke-linecap="round"
               />
-              <path
-                class="plant-stem"
-                d="M518,225 C545,195 580,175 610,145"
-                stroke="url(#gradStem)"
-                stroke-width="3"
-                fill="none"
-                stroke-linecap="round"
-              />
-
-              <!-- Hojas del jazmín -->
-              <g class="plant-leaf" style="transform-origin: 470px 220px;">
-                <path d="M470,220 C445,210 430,190 440,180 C460,180 475,200 470,220 Z" fill="url(#gradLeafLush)" />
+              <!-- Hojas -->
+              <g class="plant-leaf" style="transform-origin: 430px 240px;">
+                <path d="M430,240 C405,230 390,210 400,200 C420,200 435,220 430,240 Z" fill="url(#gradLeafLush)" />
               </g>
-              <g class="plant-leaf" style="transform-origin: 560px 185px;">
-                <path d="M560,185 C580,170 600,170 605,182 C595,198 575,200 560,185 Z" fill="url(#gradLeafGolden)" />
-              </g>
-              <g class="plant-leaf" style="transform-origin: 512px 195px;">
-                <path d="M512,195 C495,180 490,160 502,155 C518,160 522,180 512,195 Z" fill="url(#gradLeafLush)" />
-              </g>
-
-              <!-- Flor 1 abierta (Extremo izquierdo) -->
-              <g class="plant-flower" id="flower1" style="transform-origin: 430px 170px;">
-                <circle cx="430" cy="170" r="14" fill="#fff9db" opacity="0.45" />
-                <path d="M430,170 C420,150 410,152 422,142 C432,140 435,155 430,170 Z" fill="url(#gradFlowerPetal)" stroke="#fef08a" stroke-width="0.8" />
-                <path d="M430,170 C445,152 455,158 450,170 C442,178 435,175 430,170 Z" fill="url(#gradFlowerPetal)" stroke="#fef08a" stroke-width="0.8" />
-                <path d="M430,170 C442,185 435,195 425,190 C418,182 422,175 430,170 Z" fill="url(#gradFlowerPetal)" stroke="#fef08a" stroke-width="0.8" />
-                <path d="M430,170 C412,180 405,172 410,160 C418,155 425,162 430,170 Z" fill="url(#gradFlowerPetal)" stroke="#fef08a" stroke-width="0.8" />
-                <circle cx="430" cy="170" r="4.5" fill="url(#gradFlowerPistil)" />
-              </g>
-
-              <!-- Flor 2 abierta (Extremo derecho) -->
-              <g class="plant-flower" id="flower2" style="transform-origin: 610px 145px;">
-                <circle cx="610" cy="145" r="16" fill="#fff9db" opacity="0.45" />
-                <path d="M610,145 C600,122 612,118 622,125 C628,135 620,142 610,145 Z" fill="url(#gradFlowerPetal)" stroke="#fef08a" stroke-width="0.8" />
-                <path d="M610,145 C630,132 642,140 635,152 C625,160 618,152 610,145 Z" fill="url(#gradFlowerPetal)" stroke="#fef08a" stroke-width="0.8" />
-                <path d="M610,145 C622,165 610,175 598,168 C592,158 600,150 610,145 Z" fill="url(#gradFlowerPetal)" stroke="#fef08a" stroke-width="0.8" />
-                <path d="M610,145 C590,152 582,140 590,130 C600,125 605,138 610,145 Z" fill="url(#gradFlowerPetal)" stroke="#fef08a" stroke-width="0.8" />
-                <circle cx="610" cy="145" r="5" fill="url(#gradFlowerPistil)" />
-              </g>
-
-              <!-- Botón floral superior -->
-              <g class="plant-flower" id="flower3" style="transform-origin: 510px 170px;">
-                <path d="M510,170 C498,155 505,140 515,142 C525,145 522,160 510,170 Z" fill="url(#gradFlowerPetal)" />
-                <circle cx="512" cy="155" r="3.5" fill="url(#gradFlowerPistil)" />
+              <!-- Flores abiertas -->
+              <g class="plant-flower" id="flower1" style="transform-origin: 390px 190px;">
+                <circle cx="390" cy="190" r="14" fill="#fff9db" opacity="0.45" />
+                <path d="M390,190 C380,170 370,172 382,162 C392,160 395,175 390,190 Z" fill="url(#gradFlowerPetal)" stroke="#fef08a" stroke-width="0.8" />
+                <path d="M390,190 C405,172 415,178 410,190 C402,198 395,195 390,190 Z" fill="url(#gradFlowerPetal)" stroke="#fef08a" stroke-width="0.8" />
+                <path d="M390,190 C402,205 395,215 385,210 C378,202 382,195 390,190 Z" fill="url(#gradFlowerPetal)" stroke="#fef08a" stroke-width="0.8" />
+                <circle cx="390" cy="190" r="4.5" fill="url(#gradFlowerPistil)" />
               </g>
             </g>
 
-            <!-- PLANTA 4: Cañas de Bambú y Gramíneas de Pradera (Centro-Derecha) -->
+            <!-- PLANTA 4: Cañas de Bambú y Gramíneas (Centro-Derecha) -->
             <g class="garden-specimen specimen-4" id="plant4">
               <path
                 class="plant-stem"
-                d="M730,418 C735,310 720,190 740,75"
+                d="M780,438 C785,330 770,210 790,95"
                 stroke="url(#gradStem)"
-                stroke-width="5"
+                stroke-width="4.5"
                 fill="none"
                 stroke-linecap="round"
               />
               <path
                 class="plant-stem"
-                d="M760,418 C770,320 790,210 805,100"
+                d="M810,438 C820,340 840,230 855,120"
                 stroke="url(#gradStem)"
-                stroke-width="4"
+                stroke-width="3.5"
                 fill="none"
                 stroke-linecap="round"
               />
-              <path
-                class="plant-stem"
-                d="M710,418 C700,340 685,250 670,165"
-                stroke="url(#gradStem)"
-                stroke-width="3"
-                fill="none"
-                stroke-linecap="round"
-              />
-
-              <!-- Hojas lanceoladas -->
-              <g class="plant-leaf" style="transform-origin: 735px 230px;">
-                <path d="M735,230 C760,220 810,235 840,250 C805,255 765,248 735,230 Z" fill="url(#gradLeafGolden)" />
+              <g class="plant-leaf" style="transform-origin: 785px 250px;">
+                <path d="M785,250 C810,240 860,255 890,270 C855,275 815,268 785,250 Z" fill="url(#gradLeafGolden)" />
               </g>
-              <g class="plant-leaf" style="transform-origin: 730px 180px;">
-                <path d="M730,180 C700,165 650,170 620,185 C655,192 695,192 730,180 Z" fill="url(#gradLeafLush)" />
-              </g>
-              <g class="plant-leaf" style="transform-origin: 738px 120px;">
-                <path d="M738,120 C765,105 810,115 835,130 C800,135 765,130 738,120 Z" fill="url(#gradLeafGolden)" />
-              </g>
-              <g class="plant-leaf" style="transform-origin: 740px 75px;">
-                <path d="M740,75 C725,50 710,40 705,45 C705,65 725,70 740,75 Z" fill="#aed581" />
-                <path d="M740,75 C755,50 770,40 775,45 C775,65 755,70 740,75 Z" fill="#81c784" />
-              </g>
-              <g class="plant-leaf" style="transform-origin: 785px 190px;">
-                <path d="M785,190 C815,180 860,195 885,210 C850,215 815,208 785,190 Z" fill="url(#gradLeafLush)" />
+              <g class="plant-leaf" style="transform-origin: 790px 140px;">
+                <path d="M790,140 C815,125 860,135 885,150 C850,155 815,150 790,140 Z" fill="url(#gradLeafGolden)" />
               </g>
             </g>
 
-            <!-- PLANTA 5: Gran Monstera y Follaje Escultural (Derecha) -->
-            <g class="garden-specimen specimen-5" id="plant5">
-              <path
-                class="plant-stem"
-                d="M980,418 C970,310 940,225 915,125"
-                stroke="url(#gradStem)"
-                stroke-width="6"
-                fill="none"
-                stroke-linecap="round"
-              />
-              <path
-                class="plant-stem"
-                d="M975,340 C1015,280 1060,230 1090,155"
-                stroke="url(#gradStem)"
-                stroke-width="5"
-                fill="none"
-                stroke-linecap="round"
-              />
-              <path
-                class="plant-stem"
-                d="M965,370 C925,320 880,290 850,235"
-                stroke="url(#gradStem)"
-                stroke-width="4"
-                fill="none"
-                stroke-linecap="round"
-              />
-
-              <!-- Hoja Monstera Ápice (Con fenestraciones botánicas de autor) -->
-              <g class="plant-leaf" style="transform-origin: 915px 125px;">
-                <path
-                  d="M915,125 C880,85 820,75 790,120 C765,160 805,210 855,220 C910,230 935,175 915,125 Z"
-                  fill="url(#gradLeafLush)"
-                />
-                <path d="M915,125 C875,155 845,185 825,205" stroke="#aed581" stroke-width="2.5" fill="none" opacity="0.7" />
-                <path d="M865,128 C850,135 840,150 848,155 C856,158 870,145 865,128 Z" fill="#dce4dc" opacity="0.9" />
-                <path d="M835,160 C822,170 815,182 822,187 C830,190 840,175 835,160 Z" fill="#dce4dc" opacity="0.9" />
-                <path d="M885,168 C872,178 865,190 872,195 C880,198 890,185 885,168 Z" fill="#dce4dc" opacity="0.9" />
-              </g>
-
-              <!-- Hoja Monstera Derecha -->
-              <g class="plant-leaf" style="transform-origin: 1090px 155px;">
-                <path
-                  d="M1090,155 C1130,120 1180,125 1195,165 C1210,205 1175,250 1125,255 C1075,260 1065,200 1090,155 Z"
-                  fill="url(#gradLeafGolden)"
-                />
-                <path d="M1090,155 C1130,190 1155,220 1175,240" stroke="#c5e1a5" stroke-width="2.5" fill="none" opacity="0.7" />
-                <path d="M1135,160 C1148,168 1158,180 1150,188 C1142,192 1130,178 1135,160 Z" fill="#dce4dc" opacity="0.9" />
-                <path d="M1115,200 C1128,208 1135,220 1128,226 C1120,230 1110,218 1115,200 Z" fill="#dce4dc" opacity="0.9" />
-              </g>
-
-              <!-- Hoja Izquierda Media -->
-              <g class="plant-leaf" style="transform-origin: 850px 235px;">
-                <path
-                  d="M850,235 C820,210 780,215 765,245 C750,275 780,310 820,310 C855,310 865,270 850,235 Z"
-                  fill="url(#gradLeafLush)"
-                />
-              </g>
-            </g>
-
-            <!-- PLANTA 6: Helecho de Ribera y Flores Silvestres (Extremo Derecho) -->
+            <!-- PLANTA 5: Helecho de Ribera y Flores Silvestres (Extremo Derecho) -->
             <g class="garden-specimen specimen-6" id="plant6">
               <path
                 class="plant-stem"
-                d="M1250,418 C1260,320 1290,220 1340,110"
+                d="M1350,438 C1360,340 1380,240 1410,130"
                 stroke="url(#gradStem)"
                 stroke-width="4"
                 fill="none"
                 stroke-linecap="round"
               />
-              <path
-                class="plant-stem"
-                d="M1255,300 C1220,260 1185,230 1160,180"
-                stroke="url(#gradStem)"
-                stroke-width="3"
-                fill="none"
-                stroke-linecap="round"
-              />
-
-              <!-- Pinnas del helecho -->
-              <g class="plant-leaf" style="transform-origin: 1270px 260px;">
-                <path d="M1270,260 C1300,245 1340,250 1358,238 C1330,230 1295,240 1270,260 Z" fill="url(#gradFern)" />
+              <g class="plant-leaf" style="transform-origin: 1360px 280px;">
+                <path d="M1360,280 C1390,265 1430,270 1440,258 C1420,250 1385,260 1360,280 Z" fill="url(#gradFern)" />
               </g>
-              <g class="plant-leaf" style="transform-origin: 1290px 200px;">
-                <path d="M1290,200 C1320,185 1360,190 1378,178 C1350,170 1315,180 1290,200 Z" fill="url(#gradFern)" />
-              </g>
-              <g class="plant-leaf" style="transform-origin: 1315px 150px;">
-                <path d="M1315,150 C1340,135 1375,138 1390,128 C1368,120 1335,132 1315,150 Z" fill="url(#gradFern)" />
-              </g>
-
               <!-- Flor silvestre dorada -->
-              <g class="plant-flower" id="flower4" style="transform-origin: 1160px 180px;">
-                <circle cx="1160" cy="180" r="14" fill="#fff9db" opacity="0.45" />
-                <path d="M1160,180 C1148,162 1158,155 1168,162 C1174,170 1168,176 1160,180 Z" fill="url(#gradFlowerPetal)" stroke="#fef08a" stroke-width="0.8" />
-                <path d="M1160,180 C1178,168 1188,175 1182,185 C1174,192 1168,185 1160,180 Z" fill="url(#gradFlowerPetal)" stroke="#fef08a" stroke-width="0.8" />
-                <path d="M1160,180 C1170,198 1158,206 1148,198 C1144,190 1152,184 1160,180 Z" fill="url(#gradFlowerPetal)" stroke="#fef08a" stroke-width="0.8" />
-                <path d="M1160,180 C1142,190 1134,180 1142,170 C1150,165 1156,174 1160,180 Z" fill="url(#gradFlowerPetal)" stroke="#fef08a" stroke-width="0.8" />
-                <circle cx="1160" cy="180" r="4.5" fill="url(#gradFlowerPistil)" />
+              <g class="plant-flower" id="flower4" style="transform-origin: 1330px 200px;">
+                <circle cx="1330" cy="200" r="14" fill="#fff9db" opacity="0.45" />
+                <path d="M1330,200 C1318,182 1328,175 1338,182 C1344,190 1338,196 1330,200 Z" fill="url(#gradFlowerPetal)" stroke="#fef08a" stroke-width="0.8" />
+                <path d="M1330,200 C1348,188 1358,195 1352,205 C1344,212 1338,205 1330,200 Z" fill="url(#gradFlowerPetal)" stroke="#fef08a" stroke-width="0.8" />
+                <circle cx="1330" cy="200" r="4.5" fill="url(#gradFlowerPistil)" />
               </g>
             </g>
           </svg>
