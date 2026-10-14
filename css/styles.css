@@ -69,32 +69,30 @@ body.loading {
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: center 45%;
+  background-position: center 48%;
   opacity: 0;
-  transform: scale(1.08);
-  transition: opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1),
-              transform 5s cubic-bezier(0.25, 1, 0.5, 1);
+  transform: scale(1.05);
+  transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 6.5s cubic-bezier(0.25, 1, 0.5, 1);
   will-change: opacity, transform;
 }
 
 .preloader-bg-slide.active {
-  opacity: 0.38;
+  opacity: 0.88;
   transform: scale(1);
 }
 
-/* Velo cinemático y desenfoque óptico */
+/* Velo cinemático nítido para apreciar los árboles de fondo en alta definición */
 .preloader-overlay {
   position: absolute;
   inset: 0;
   z-index: 2;
   background: radial-gradient(
     circle at center,
-    rgba(8, 9, 10, 0.45) 0%,
-    rgba(8, 9, 10, 0.82) 55%,
-    rgba(8, 9, 10, 0.95) 100%
+    rgba(8, 9, 10, 0.18) 0%,
+    rgba(8, 9, 10, 0.42) 55%,
+    rgba(8, 9, 10, 0.75) 100%
   );
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
 }
 
 /* Núcleo central del preloader */
@@ -106,7 +104,7 @@ body.loading {
   align-items: center;
   text-align: center;
   padding: 2rem;
-  max-width: 420px;
+  max-width: 440px;
 }
 
 .preloader-circle-wrapper {
@@ -115,7 +113,8 @@ body.loading {
   height: clamp(165px, 21vw, 205px);
   display: grid;
   place-items: center;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.6rem;
+  filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.88));
 }
 
 .preloader-ring-svg {
@@ -188,7 +187,14 @@ body.loading {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.75rem;
+  background: rgba(13, 15, 14, 0.76);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 1.05rem 1.8rem 1.15rem;
+  border-radius: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.6);
 }
 
 .preloader-brand {

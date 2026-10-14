@@ -40,15 +40,15 @@
       }
     };
 
-    slideInterval = setInterval(nextSlide, 750);
+    slideInterval = setInterval(nextSlide, 1350);
 
-    // Animación de la barra y el anillo de carga estilo Apple (0% a 100%)
+    // Animación pausada de la barra y el anillo de carga estilo Apple (0% a 100%)
     gsap.to(
       { val: 0 },
       {
         val: 100,
-        duration: 2.8,
-        ease: "power2.inOut",
+        duration: 6.8,
+        ease: "power1.inOut",
         onUpdate: function () {
           const current = Math.round(this.targets()[0].val);
           if (preloaderPercent) preloaderPercent.textContent = `${current}%`;
