@@ -94,16 +94,23 @@
   };
 
   gsap.set(leafWrap, {
-    transformOrigin: "50% 55%",
+    transformOrigin: "50% 50%",
     force3D: true,
   });
+
+  gsap.set(revealCopy, {
+    autoAlpha: 0,
+    y: 35,
+  });
+
+  const isMobile = window.innerWidth <= 1100;
 
   const heroTl = gsap.timeline({
     defaults: { ease: "none" },
     scrollTrigger: {
       trigger: ".hero-stage",
       start: "top top",
-      end: "+=280%",
+      end: "+=260%",
       pin: ".hero-pin",
       scrub: 1.1,
       anticipatePin: 1,
@@ -111,33 +118,87 @@
   });
 
   heroTl
+    // 1. Overlay oscuro desaparece devolviendo la luminosidad viva a la imagen
+    .to(
+      ".leaf-overlay",
+      {
+        opacity: 0,
+        duration: 0.5,
+      },
+      0
+    )
+    // 2. La imagen se transforma en 3D, se redondea y se ubica de lado
     .to(
       leafWrap,
       {
-        rotateY: 48,
-        rotateX: -16,
-        rotateZ: -9,
-        scale: 0.52,
-        xPercent: 32,
-        yPercent: 6,
+        scale: isMobile ? 0.48 : 0.52,
+        xPercent: isMobile ? 0 : 32,
+        yPercent: isMobile ? -22 : 0,
+        rotateY: isMobile ? 0 : -26,
+        rotateX: isMobile ? 8 : 12,
+        rotateZ: isMobile ? 0 : 3,
+        borderRadius: "32px",
+        boxShadow: "0 35px 85px rgba(0, 0, 0, 0.28)",
+        duration: 1,
       },
       0
     )
+    // 3. Las letras cambian de blanco a negro al salir de la imagen
     .to(
       heroCopy,
       {
-        opacity: 0,
-        y: -48,
+        color: "#1d1d1f",
+        duration: 0.35,
       },
       0
     )
     .to(
+      ".hero-copy .eyebrow",
+      {
+        color: "#6e6e73",
+        duration: 0.35,
+      },
+      0
+    )
+    // 4. La barra de navegación se convierte en cristal esmerilado con texto negro
+    .to(
+      ".nav",
+      {
+        color: "#1d1d1f",
+        backgroundColor: "rgba(245, 245, 247, 0.82)",
+        borderBottomColor: "rgba(29, 29, 31, 0.08)",
+        backdropFilter: "blur(20px)",
+        duration: 0.35,
+      },
+      0
+    )
+    .to(
+      ".nav nav",
+      {
+        color: "#6e6e73",
+        duration: 0.35,
+      },
+      0
+    )
+    // 5. El texto del hero inicial se retira con suavidad hacia arriba
+    .to(
+      heroCopy,
+      {
+        autoAlpha: 0,
+        y: -45,
+        duration: 0.4,
+      },
+      0.18
+    )
+    // 6. El texto lateral ("Un jardín no se decora. Se orquesta.") aparece en negro nítido
+    .to(
       revealCopy,
       {
-        opacity: 1,
-        y: -24,
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.55,
       },
-      0.38
+      0.4
     );
 
   if (toolImg) {
