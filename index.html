@@ -11,7 +11,78 @@
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
-  <body>
+  <body class="loading">
+    <!-- PANTALLA DE CARGA (Preloader estilo Apple: Bonsái Central & Carrusel de Árboles) -->
+    <div class="preloader" id="preloader" role="status" aria-live="polite">
+      <!-- Carrusel de árboles de fondo con transición suave -->
+      <div class="preloader-bg-slides" aria-hidden="true">
+        <div
+          class="preloader-bg-slide active"
+          style="background-image: url('assets/images/bonsai-hero.jpg');"
+          data-tree="Pino Negro Japonés Centenario"
+        ></div>
+        <div
+          class="preloader-bg-slide"
+          style="background-image: url('assets/images/bonsai-juniper.jpg');"
+          data-tree="Enebro de Montaña (Juniperus)"
+        ></div>
+        <div
+          class="preloader-bg-slide"
+          style="background-image: url('assets/images/bonsai-sculptural.jpg');"
+          data-tree="Olmo Escultórico en Piedra"
+        ></div>
+        <div
+          class="preloader-bg-slide"
+          style="background-image: url('assets/images/bonsai-banyan.jpg');"
+          data-tree="Ficus Banyan de Raíces Aéreas"
+        ></div>
+        <div
+          class="preloader-bg-slide"
+          style="background-image: url('assets/images/bonsai-lush.jpg');"
+          data-tree="Zelkova Imperial en Maceta de Jade"
+        ></div>
+      </div>
+
+      <!-- Filtro y velo cinemático oscuro para resaltar el círculo central -->
+      <div class="preloader-overlay" aria-hidden="true"></div>
+
+      <!-- Núcleo central del preloader: círculo del bonsái y anillo de progreso -->
+      <div class="preloader-core">
+        <div class="preloader-circle-wrapper">
+          <!-- Anillo SVG de progreso circular -->
+          <svg class="preloader-ring-svg" viewBox="0 0 180 180" aria-hidden="true">
+            <circle class="ring-bg" cx="90" cy="90" r="82" />
+            <circle class="ring-indicator" id="preloaderRing" cx="90" cy="90" r="82" />
+          </svg>
+
+          <!-- Círculo interior con fotografía del bonsái y destello lumínico -->
+          <div class="preloader-bonsai-circle">
+            <img
+              src="assets/images/bonsai-hero.jpg"
+              alt="Bonsái central de carga"
+              class="preloader-bonsai-img"
+            />
+            <div class="circle-specular" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <!-- Información tipográfica minimalista -->
+        <div class="preloader-meta">
+          <span class="preloader-brand">Javama Jardinería</span>
+          <div class="preloader-tree-badge">
+            <span class="tree-badge-dot"></span>
+            <span id="preloaderTreeCaption">Pino Negro Japonés Centenario</span>
+          </div>
+          <div class="preloader-progress-row">
+            <div class="preloader-bar-track">
+              <div class="preloader-bar-fill" id="preloaderLinearBar"></div>
+            </div>
+            <span class="preloader-percent" id="preloaderPercent">0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <header class="nav">
       <a class="logo" href="#inicio">Javama</a>
       <nav>

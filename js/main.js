@@ -1,6 +1,114 @@
 (() => {
   gsap.registerPlugin(ScrollTrigger);
 
+  // ========================================================================
+  // PANTALLA DE CARGA (Apple Preloader: Bonsái Central & Carrusel de Árboles)
+  // ========================================================================
+  const preloader = document.getElementById("preloader");
+  const preloaderRing = document.getElementById("preloaderRing");
+  const preloaderPercent = document.getElementById("preloaderPercent");
+  const preloaderLinearBar = document.getElementById("preloaderLinearBar");
+  const preloaderTreeCaption = document.getElementById("preloaderTreeCaption");
+  const preloaderCore = document.querySelector(".preloader-core");
+  const bgSlides = document.querySelectorAll(".preloader-bg-slide");
+
+  if (preloader) {
+    document.body.classList.add("loading");
+
+    const ringCircumference = 515.2; // 2 * PI * 82
+    let currentSlide = 0;
+    let slideInterval = null;
+
+    // Rotación suave de los árboles de fondo y actualización de nombres
+    const nextSlide = () => {
+      if (bgSlides.length === 0) return;
+      bgSlides[currentSlide].classList.remove("active");
+      currentSlide = (currentSlide + 1) % bgSlides.length;
+      bgSlides[currentSlide].classList.add("active");
+
+      const treeName = bgSlides[currentSlide].getAttribute("data-tree");
+      if (preloaderTreeCaption && treeName) {
+        gsap.to(preloaderTreeCaption, {
+          opacity: 0,
+          y: -4,
+          duration: 0.2,
+          onComplete: () => {
+            preloaderTreeCaption.textContent = treeName;
+            gsap.to(preloaderTreeCaption, { opacity: 1, y: 0, duration: 0.35 });
+          },
+        });
+      }
+    };
+
+    slideInterval = setInterval(nextSlide, 750);
+
+    // Animación de la barra y el anillo de carga estilo Apple (0% a 100%)
+    gsap.to(
+      { val: 0 },
+      {
+        val: 100,
+        duration: 2.8,
+        ease: "power2.inOut",
+        onUpdate: function () {
+          const current = Math.round(this.targets()[0].val);
+          if (preloaderPercent) preloaderPercent.textContent = `${current}%`;
+          if (preloaderLinearBar) preloaderLinearBar.style.width = `${current}%`;
+          if (preloaderRing) {
+            const offset = ringCircumference * (1 - current / 100);
+            preloaderRing.style.strokeDashoffset = offset;
+          }
+        },
+        onComplete: function () {
+          clearInterval(slideInterval);
+          if (preloaderTreeCaption) {
+            preloaderTreeCaption.textContent = "Colección viva lista";
+          }
+
+          // Salida cinematográfica con revelado del bonsái principal
+          const exitTl = gsap.timeline({
+            onComplete: () => {
+              if (preloader && preloader.parentNode) {
+                preloader.parentNode.removeChild(preloader);
+              }
+              document.body.classList.remove("loading");
+              ScrollTrigger.refresh();
+            },
+          });
+
+          exitTl
+            .to(preloaderCore, {
+              scale: 1.08,
+              opacity: 0,
+              y: -15,
+              duration: 0.6,
+              ease: "power2.in",
+            })
+            .to(
+              preloader,
+              {
+                opacity: 0,
+                duration: 0.7,
+                ease: "power2.out",
+              },
+              "-=0.2"
+            )
+            .fromTo(
+              "#bonsaiWrap",
+              { scale: 1.08, filter: "brightness(0.6)" },
+              { scale: 1, filter: "brightness(1)", duration: 1.2, ease: "power2.out" },
+              "-=0.4"
+            )
+            .fromTo(
+              ".hero-copy",
+              { opacity: 0, y: 30 },
+              { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" },
+              "-=0.8"
+            );
+        },
+      }
+    );
+  }
+
   const leafWrap = document.querySelector(".leaf-wrap");
   const heroCopy = document.querySelector(".hero-copy");
   const revealCopy = document.querySelector(".reveal-copy");

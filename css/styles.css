@@ -28,6 +28,242 @@ body {
   overflow-x: hidden;
 }
 
+body.loading {
+  overflow: hidden !important;
+  height: 100vh;
+}
+
+/* ==========================================================================
+   PANTALLA DE CARGA (Apple Preloader: Bonsái Central & Carrusel de Árboles)
+   ========================================================================== */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #08090a;
+  overflow: hidden;
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.8s ease;
+}
+
+.preloader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Carrusel de fondo con árboles diferentes */
+.preloader-bg-slides {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.preloader-bg-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center 45%;
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 5s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
+}
+
+.preloader-bg-slide.active {
+  opacity: 0.38;
+  transform: scale(1);
+}
+
+/* Velo cinemático y desenfoque óptico */
+.preloader-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(
+    circle at center,
+    rgba(8, 9, 10, 0.45) 0%,
+    rgba(8, 9, 10, 0.82) 55%,
+    rgba(8, 9, 10, 0.95) 100%
+  );
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Núcleo central del preloader */
+.preloader-core {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  max-width: 420px;
+}
+
+.preloader-circle-wrapper {
+  position: relative;
+  width: clamp(165px, 21vw, 205px);
+  height: clamp(165px, 21vw, 205px);
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.8rem;
+}
+
+.preloader-ring-svg {
+  position: absolute;
+  inset: -10px;
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.ring-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 3;
+}
+
+.ring-indicator {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 515.2;
+  stroke-dashoffset: 515.2;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+  transition: stroke-dashoffset 0.15s linear;
+}
+
+/* Círculo con la fotografía del bonsái */
+.preloader-bonsai-circle {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.2);
+  background: #0d0f0e;
+  transform-style: preserve-3d;
+}
+
+.preloader-bonsai-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 48%;
+  transform: scale(1.05);
+  animation: preloaderPulse 3.8s infinite ease-in-out;
+}
+
+@keyframes preloaderPulse {
+  0%, 100% { transform: scale(1.04); }
+  50% { transform: scale(1.1); }
+}
+
+.circle-specular {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.05) 40%,
+    transparent 65%
+  );
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Meta información inferior */
+.preloader-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.preloader-brand {
+  font-size: 0.82rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-weight: 600;
+  opacity: 0.92;
+}
+
+.preloader-tree-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.38rem 0.95rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 980px;
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 400;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  min-height: 28px;
+  transition: all 0.35s ease;
+}
+
+.tree-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.85);
+  animation: pulseDot 1.8s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 0.6; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.preloader-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 0.35rem;
+  width: 180px;
+}
+
+.preloader-bar-track {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.preloader-bar-fill {
+  width: 0%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 999px;
+  transition: width 0.1s linear;
+}
+
+.preloader-percent {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  width: 32px;
+  text-align: right;
+}
+
 img {
   max-width: 100%;
   display: block;
