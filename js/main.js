@@ -341,15 +341,65 @@
     }
   }
 
-  gsap.utils.toArray(".work-card, .review-card").forEach((card, i) => {
+  // ========================================================================
+  // SCROLL HORIZONTAL ESTILO APPLE (Sección Trabajos Selectos)
+  // ========================================================================
+  const worksSection = document.querySelector(".works-horizontal-wrapper");
+  const worksTrack = document.getElementById("worksTrack");
+  const worksProgress = document.getElementById("worksProgress");
+
+  if (worksSection && worksTrack) {
+    const isDesktop = window.innerWidth > 900;
+
+    if (isDesktop) {
+      const getScrollDistance = () => {
+        return worksTrack.scrollWidth - window.innerWidth + (window.innerWidth * 0.18);
+      };
+
+      const horizontalTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: worksSection,
+          start: "top top",
+          end: () => `+=${getScrollDistance()}`,
+          pin: true,
+          scrub: 1.1,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            if (worksProgress) {
+              worksProgress.style.width = `${Math.max(self.progress * 100, 10)}%`;
+            }
+          },
+        },
+      });
+
+      horizontalTl.to(worksTrack, {
+        x: () => -getScrollDistance(),
+        ease: "none",
+      });
+
+      // Micro-efecto de foco y escala en las tarjetas al desplazarse horizontalmente
+      gsap.utils.toArray(".work-card").forEach((card, index) => {
+        horizontalTl.fromTo(
+          card,
+          { scale: 0.96, opacity: 0.88 },
+          { scale: 1, opacity: 1, duration: 0.25, ease: "power1.out" },
+          index * 0.2
+        );
+      });
+    }
+  }
+
+  // Revelado de tarjetas de valoraciones
+  gsap.utils.toArray(".review-card").forEach((card) => {
     gsap.from(card, {
       opacity: 0,
-      y: 30,
+      y: 35,
       duration: 0.85,
       ease: "power2.out",
       scrollTrigger: {
         trigger: card,
-        start: "top 90%",
+        start: "top 88%",
       },
     });
   });
